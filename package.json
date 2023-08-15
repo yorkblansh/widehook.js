@@ -3,9 +3,8 @@
   "version": "0.0.1",
   "description": "Boilerplate to create library with Vite, Typescript and React.js",
   "license": "MIT",
-  "main": "./dist/my-lib-hello-2.umd.js",
-  "module": "./dist/my-lib-hello-2.es.js",
-  "types": "./dist/lib/main.d.ts",
+  "main": "./dist/widehook.umd.js",
+  "module": "./dist/widehook.es.js",
   "scripts": {
     "dev": "vite",
     "build": " vite build",
@@ -21,8 +20,8 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/my-lib-hello-2.es.js",
-      "require": "./dist/my-lib-hello-2.umd.js"
+      "import": "./dist/widehook.es.js",
+      "require": "./dist/widehook.umd.js"
     }
   },
   "repository": {
