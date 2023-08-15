@@ -22,7 +22,8 @@
 				"mhutchie.git-graph",
 				"eamodio.gitlens",
 				"Gruntfuggly.todo-tree",
-				"redhat.vscode-yaml"
+				"redhat.vscode-yaml",
+				"github.vscode-github-actions"
 			]
 		}
 	},
