@@ -1,11 +1,16 @@
-import { StrictMode } from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
+import { StrictMode } from "react"
+import ReactDOM from "react-dom"
+import "./scss/index.scss"
+import { MainComponent } from "./components/MainComponent"
+import { AnotherComponent } from "./components/AnotherComponent"
 
-ReactDOM.render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-  document.getElementById('root'),
-)
+const PlayGround = () => {
+	return (
+		<div className="playground">
+			<MainComponent />
+			<AnotherComponent />
+		</div>
+	)
+}
+
+ReactDOM.render(<PlayGround />, document.getElementById("root"))
