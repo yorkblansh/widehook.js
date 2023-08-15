@@ -6,7 +6,7 @@
   "main": "./dist/widehook.umd.js",
   "module": "./dist/widehook.es.js",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 5172 --host",
     "build": " vite build",
     "preview": "vite preview",
     "lint": "eslint src --ext ts,tsx",
