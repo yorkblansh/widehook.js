@@ -17,7 +17,7 @@
 		"jsx": "react-jsx",
 		"baseUrl": ".",
 		"paths": {
-			"@panhasilva/my-lib-hello-2": ["lib/widehook.tsx"]
+			"@widehook": ["lib/widehook.tsx"]
 		}
 	},
 	"include": ["./src", "./lib"],
