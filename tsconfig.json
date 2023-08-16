@@ -17,7 +17,7 @@
 		"jsx": "react-jsx",
 		"baseUrl": ".",
 		"paths": {
-			"@widehook": ["lib/widehook.tsx"]
+			"@widehook": ["lib/widehook.umd.tsx"]
 		},
 		"declaration": true,
 		"pretty": true
