@@ -31,7 +31,7 @@ export default defineConfig((configEnv) => ({
 	build: {
 		minify: true,
 		lib: {
-			formats: ['es', 'cjs'],
+			formats: ['es', 'umd'],
 			entry: resolve('lib', 'widehook.tsx'),
 			name: 'ReactFeatureFlag',
 			fileName: (format, entryName) => {
