@@ -16,27 +16,21 @@ export default defineConfig((configEnv) => ({
 		// }),
 		dts({
 			insertTypesEntry: true,
-
 			include: ['lib/widehook.tsx'],
-
-			beforeWriteFile: (filePath, content) => {
-				return {
-					filePath: filePath.replace('/lib', ''),
-					content,
-				}
-			},
+			beforeWriteFile: (filePath, content) => ({
+				filePath: filePath.replace('/lib', ''),
+				content,
+			}),
 		}),
 	],
-
 	build: {
 		minify: true,
 		lib: {
 			formats: ['es', 'umd'],
 			entry: resolve('lib', 'widehook.tsx'),
 			name: 'ReactFeatureFlag',
-			fileName: (format, entryName) => {
-				return `widehook.${format}.js`
-			},
+			fileName: (format, entryName) =>
+				`widehook${format === 'umd' ? '' : '.' + format}.js`,
 		},
 		rollupOptions: {
 			external: ['react'],
