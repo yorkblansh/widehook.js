@@ -1,7 +1,7 @@
 {
 	"name": "widehook",
 	"version": "0.0.8",
-	"description": "Boilerplate to create library with Vite, Typescript and React.js",
+	"description": "use wide hooks",
 	"license": "MIT",
 	"main": "./dist/widehook.umd.js",
 	"module": "./dist/widehook.es.js",
