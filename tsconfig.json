@@ -18,7 +18,9 @@
 		"baseUrl": ".",
 		"paths": {
 			"@widehook": ["lib/widehook.tsx"]
-		}
+		},
+		"declaration": true,
+		"pretty": true
 	},
 	"include": ["./src", "./lib"],
 	"references": [{ "path": "./tsconfig.node.json" }]
