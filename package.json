@@ -27,7 +27,13 @@
 		"type": "git",
 		"url": "git+https://github.com/yorkblansh/widehook.git"
 	},
-	"keywords": [],
+	"keywords": [
+		"hook",
+		"state",
+		"global state",
+		"react",
+		"state manager"
+	],
 	"author": "Oleg Chepelev - yorkblansh@yandex.com",
 	"bugs": {
 		"url": "https://github.com/yorkblansh/widehook/issues"
