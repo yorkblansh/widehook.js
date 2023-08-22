@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"description": "use wide hooks",
 	"license": "MIT",
-	"main": "./dist/widehook.umd.js",
+	"main": "./dist/widehook.js",
 	"module": "./dist/widehook.es.js",
 	"scripts": {
 		"dev": "vite --port 5172 --host",
@@ -17,12 +17,6 @@
 	"files": [
 		"dist"
 	],
-	"exports": {
-		".": {
-			"import": "./dist/widehook.es.js",
-			"require": "./dist/widehook.umd.js"
-		}
-	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/yorkblansh/widehook.git"
