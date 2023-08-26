@@ -6,7 +6,7 @@ export const AnotherComponent = () => {
 
 	const [message, setMessage] = useWideMessage()
 
-	console.log({ a })
+	// console.log({ a })
 
 	return (
 		<section>
