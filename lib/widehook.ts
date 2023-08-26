@@ -11,19 +11,18 @@ export const createWideHook = <
 >({
 	initState,
 }: Props<State>) => {
-	const subject = new BehaviorSubject(initState)
+	const subject$ = new BehaviorSubject(initState)
 
 	const service = {
-		emit: (state: State) => subject.next(state),
-		clear: () => subject.next(undefined as any),
-		on: () => subject.asObservable(),
+		emit: (state: State) => subject$.next(state),
+		on: () => subject$.asObservable(),
 	}
 
 	return () => {
-		const [state, setState] = useState(subject.getValue())
+		const [state, setState] = useState(subject$.getValue())
 
 		useEffect(() => {
-			setState(subject.getValue())
+			setState(subject$.getValue())
 			const subscription = service.on().subscribe({
 				next: (state) => {
 					setState(state)
