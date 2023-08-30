@@ -26,19 +26,30 @@ export const useWideMessage = createWideHook({
 ```ts
 //MainComponent.tsx
 export const MainComponent = () => {
-    const [message, setMessage] = useWideMessage()
+	const [message, setMessage] = useWideMessage()
 
-    ...
+	return (
+		<section>
+			Main Component
+			<button onClick={() => setMessage('One Value')}>{message}</button>
+		</section>
+	)
 }
 
 //AnotherComponent.tsx
 export const AnotherComponent = () => {
-    const [message, setMessage] = useWideMessage()
+	const [message, setMessage] = useWideMessage()
 
-    ...
+	return (
+		<section>
+			Another Component
+			<button onClick={() => setMessage('Another')}>{message}</button>
+		</section>
+	)
 }
-
 ```
+
+![demo](https://github.com/yorkblansh/widehook/blob/master/video/demo.mp4)
 
 ### Use `signal` mode for prevent rerenders in the component
 
