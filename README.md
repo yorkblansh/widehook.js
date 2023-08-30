@@ -42,7 +42,7 @@ export const AnotherComponent = () => {
 
 ### Use `signal` mode for prevent rerenders in the component
 
-> By default `mode` is `'useState'` and it behaves like a local useState react hook
+> By default `mode` is `'useState'` and it behaves like a simple useState react hook
 
 ```ts
 // useWideMessage.ts
