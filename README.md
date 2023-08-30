@@ -1,4 +1,4 @@
-# One state everywhere
+# One state use wide
 
 - [`mode: 'signal'`](#modes) to prevent rerenders
   <!-- - [types]() -->
