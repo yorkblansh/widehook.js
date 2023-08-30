@@ -1,4 +1,4 @@
-# One react state everywhere
+# One state everywhere
 
 - [`mode: 'signal'`](#modes) to prevent rerenders
   <!-- - [types]() -->
@@ -7,6 +7,8 @@
 <!-- ## Usage -->
 
 ### Create hook
+
+Use `as SomeType` to give the state a type
 
 ```ts
 // useWideMessage.ts
@@ -40,7 +42,7 @@ export const AnotherComponent = () => {
 
 ### Use `signal` mode for prevent rerenders in the component
 
-> By default `mode` is `'useState'` and behaves like a simple useState react hook
+> By default `mode` is `'useState'` and it behaves like a local useState react hook
 
 ```ts
 // useWideMessage.ts
