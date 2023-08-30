@@ -26,7 +26,8 @@
     "state",
     "global state",
     "react",
-    "state manager"
+    "state manager",
+    "preact"
   ],
   "author": "Oleg Chepelev - yorkblansh@yandex.com",
   "bugs": {
