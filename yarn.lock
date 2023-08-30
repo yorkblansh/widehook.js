@@ -4291,13 +4291,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hotscript@npm:^1.0.13":
-  version: 1.0.13
-  resolution: "hotscript@npm:1.0.13"
-  checksum: 09141bde1dfea1fd28e21b3c8c6e849593998dc42fc93980404bd1ad8e66ae96c0bacf03b53ee645fa736e56bcc135176ba08c1f20e93566c26856f7f3024d9c
-  languageName: node
-  linkType: hard
-
 "http-cache-semantics@npm:^4.1.1":
   version: 4.1.1
   resolution: "http-cache-semantics@npm:4.1.1"
@@ -6505,7 +6498,6 @@ __metadata:
     eslint-plugin-node: 11.1.0
     eslint-plugin-promise: 6.1.1
     eslint-plugin-react: 7.33.1
-    hotscript: ^1.0.13
     react: 18.2.0
     react-dom: 18.2.0
     rxjs: ^7.8.1
