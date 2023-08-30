@@ -8,7 +8,10 @@ import { EsLinter, linterPlugin } from 'vite-plugin-linter'
 // https://vitejs.dev/config/
 export default defineConfig((configEnv) => ({
 	plugins: [
-		react(),
+		react({
+			//  jsxImportSource: 'example',
+			// jsxRuntime: 'classic' // Add this line
+		}),
 		tsConfigPaths(),
 		// linterPlugin({
 		// 	include: ["./src}/**/*.{ts,tsx}"],
@@ -16,23 +19,28 @@ export default defineConfig((configEnv) => ({
 		// }),
 		dts({
 			insertTypesEntry: true,
-			include: ['lib/widehook.ts'],
+			include: ['src/widehook.ts'],
 			beforeWriteFile: (filePath, content) => ({
-				filePath: filePath.replace('/lib', ''),
+				filePath: filePath.replace('/src', ''),
 				content,
 			}),
 		}),
 	],
+	base: '/example',
+	// root: 'example',
 	build: {
+		outDir: 'lib',
 		minify: true,
+
 		lib: {
 			formats: ['es', 'cjs'],
-			entry: resolve('lib', 'widehook.ts'),
+			entry: resolve('src', 'widehook.ts'),
 			name: 'ReactFeatureFlag',
 			fileName: (format, entryName) =>
 				`widehook${format === 'es' ? '.es' : ''}.js`,
 		},
 		rollupOptions: {
+			// input: ['example'],
 			external: ['react'],
 		},
 	},

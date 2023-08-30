@@ -1,67 +1,69 @@
 {
-	"name": "widehook",
-	"version": "0.1.5",
-	"description": "use wide hooks",
-	"license": "MIT",
-	"main": "./dist/widehook.js",
-	"module": "./dist/widehook.es.js",
-	"scripts": {
-		"dev": "vite --port 5172 --host",
-		"build": " vite build",
-		"preview": "vite preview",
-		"lint": "eslint src --ext ts,tsx",
-		"lint:fix": "yarn lint --fix",
-		"type-check": "tsc --project tsconfig.json --pretty --noEmit",
-		"ci": "yarn lint && yarn type-check"
-	},
-	"files": [
-		"dist"
-	],
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/yorkblansh/widehook.git"
-	},
-	"keywords": [
-		"hook",
-		"state",
-		"global state",
-		"react",
-		"state manager"
-	],
-	"author": "Oleg Chepelev - yorkblansh@yandex.com",
-	"bugs": {
-		"url": "https://github.com/yorkblansh/widehook/issues"
-	},
-	"homepage": "https://github.com/yorkblansh/widehook#readme",
-	"peerDependencies": {
-		"react": ">=17.x"
-	},
-	"devDependencies": {
-		"@types/node": "20.5.0",
-		"@types/react": "18.2.20",
-		"@types/react-dom": "18.2.7",
-		"@vitejs/plugin-react": "4.0.4",
-		"babel-eslint": "10.1.0",
-		"eslint": "8.47.0",
-		"eslint-config-react-app": "7.0.1",
-		"eslint-config-standard": "17.1.0",
-		"eslint-config-standard-jsx": "11.0.0",
-		"eslint-config-standard-react": "13.0.0",
-		"eslint-plugin-import": "2.28.0",
-		"eslint-plugin-node": "11.1.0",
-		"eslint-plugin-promise": "6.1.1",
-		"eslint-plugin-react": "7.33.1",
-		"react": "18.2.0",
-		"react-dom": "18.2.0",
-		"sass": "^1.65.1",
-		"typescript": "5.1.6",
-		"vite": "4.4.9",
-		"vite-plugin-dts": "3.5.2",
-		"vite-plugin-linter": "2.0.3",
-		"vite-tsconfig-paths": "4.2.0"
-	},
-	"packageManager": "yarn@3.6.1",
-	"dependencies": {
-		"rxjs": "^7.8.1"
-	}
+  "name": "widehook",
+  "version": "0.1.5",
+  "description": "use wide hooks",
+  "license": "MIT",
+  "main": "./lib/widehook.js",
+  "module": "./lib/widehook.es.js",
+  "scripts": {
+    "dev": "vite --port 5172 --host",
+    "build": " vite build",
+    "preview": "vite preview",
+    "lint": "eslint src --ext ts,tsx",
+    "lint:fix": "yarn lint --fix",
+    "type-check": "tsc --project tsconfig.json --pretty --noEmit",
+    "ci": "yarn lint && yarn type-check"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yorkblansh/widehook.git"
+  },
+  "keywords": [
+    "hook",
+    "state",
+    "global state",
+    "react",
+    "state manager"
+  ],
+  "author": "Oleg Chepelev - yorkblansh@yandex.com",
+  "bugs": {
+    "url": "https://github.com/yorkblansh/widehook/issues"
+  },
+  "homepage": "https://github.com/yorkblansh/widehook#readme",
+  "peerDependencies": {
+    "react": ">=17.x"
+  },
+  "devDependencies": {
+    "@types/node": "20.5.0",
+    "@types/react": "18.2.20",
+    "@types/react-dom": "18.2.7",
+    "@vitejs/plugin-react": "4.0.4",
+    "babel-eslint": "10.1.0",
+    "eslint": "8.47.0",
+    "eslint-config-react-app": "7.0.1",
+    "eslint-config-standard": "17.1.0",
+    "eslint-config-standard-jsx": "11.0.0",
+    "eslint-config-standard-react": "13.0.0",
+    "eslint-plugin-import": "2.28.0",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "6.1.1",
+    "eslint-plugin-react": "7.33.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "sass": "^1.65.1",
+    "typescript": "5.1.6",
+    "vite": "4.4.9",
+    "vite-plugin-dts": "3.5.2",
+    "vite-plugin-linter": "2.0.3",
+    "vite-tsconfig-paths": "4.2.0"
+  },
+  "packageManager": "yarn@3.6.1",
+  "dependencies": {
+    "@preact/signals-react": "^1.3.6",
+    "hotscript": "^1.0.13",
+    "rxjs": "^7.8.1"
+  }
 }
