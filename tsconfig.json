@@ -16,12 +16,13 @@
 		"noEmit": true,
 		"jsx": "react-jsx",
 		"baseUrl": ".",
+		"outDir": "./lib",
 		"paths": {
-			"@widehook": ["lib/widehook.ts"]
+			"@widehook": ["src/widehook.ts"]
 		},
 		"declaration": true,
 		"pretty": true
 	},
-	"include": ["./src", "./lib"],
+	"include": ["./example", "./src"],
 	"references": [{ "path": "./tsconfig.node.json" }]
 }
