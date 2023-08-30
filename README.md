@@ -1,12 +1,12 @@
-# Global state everywhere
+# One react state everywhere
 
-- [`mode: 'signal'`](#modes) for prevent rerender
+- [`mode: 'signal'`](#modes) to prevent rerenders
   <!-- - [types]() -->
     <!-- - [development](#example2) -->
 
 <!-- ## Usage -->
 
-#### Create hook
+### Create hook
 
 ```ts
 // useWideMessage.ts
@@ -17,7 +17,7 @@ export const useWideMessage = createWideHook({
 })
 ```
 
-#### Use in each component
+### Use in each component
 
 `setMessage` will update state in both components
 
@@ -38,7 +38,7 @@ export const AnotherComponent = () => {
 
 ```
 
-#### Use `signal` mode for prevent rerender of the component
+### Use `signal` mode for prevent rerenders in the component
 
 > By default `mode` is `'useState'` and behaves like a simple useState react hook
 
