@@ -49,6 +49,8 @@ export const AnotherComponent = () => {
 }
 ```
 
+![demo](https://github.com/yorkblansh/widehook/blob/master/demo/demo.gif)
+
 ### Use `signal` mode for prevent rerenders in the component
 
 > By default `mode` is `'useState'` and it behaves like a simple useState react hook
