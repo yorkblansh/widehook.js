@@ -15,7 +15,7 @@ Use `as SomeType` to give the state a type
 import { createWideHook } from 'widehook'
 
 export const useWideMessage = createWideHook({
-	initState: 'Click' as 'One Value' | 'Another',
+  initState: 'Click' as 'One Value' | 'Another',
 })
 ```
 
@@ -26,26 +26,16 @@ export const useWideMessage = createWideHook({
 ```ts
 //MainComponent.tsx
 export const MainComponent = () => {
-	const [message, setMessage] = useWideMessage()
+ const [message, setMessage] = useWideMessage()
 
-	return (
-		<section>
-			Main Component
-			<button onClick={() => setMessage('One Value')}>{message}</button>
-		</section>
-	)
+ return <button onClick={() => setMessage('One Value')}>{message}</button>
 }
 
 //AnotherComponent.tsx
 export const AnotherComponent = () => {
-	const [message, setMessage] = useWideMessage()
+ const [message, setMessage] = useWideMessage()
 
-	return (
-		<section>
-			Another Component
-			<button onClick={() => setMessage('Another')}>{message}</button>
-		</section>
-	)
+ return <button onClick={() => setMessage('Another')}>{message}</button>
 }
 ```
 
@@ -60,8 +50,8 @@ export const AnotherComponent = () => {
 import { createWideHook } from 'widehook'
 
 export const useWideMessage = createWideHook({
-	initState: 'Click' as 'One Value' | 'Another',
-	mode: 'signal',
+ initState: 'Click' as 'One Value' | 'Another',
+ mode: 'signal',
 })
 ```
 
