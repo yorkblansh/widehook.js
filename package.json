@@ -1,6 +1,6 @@
 {
   "name": "widehook",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "use wide hooks",
   "license": "MIT",
   "main": "./lib/widehook.js",
