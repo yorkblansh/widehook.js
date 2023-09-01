@@ -19,7 +19,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yorkblansh/widehook.git"
+    "url": "git+https://github.com/yorkblansh/widehook.js.git"
   },
   "keywords": [
     "hook",
@@ -31,9 +31,9 @@
   ],
   "author": "Oleg Chepelev - yorkblansh@yandex.com",
   "bugs": {
-    "url": "https://github.com/yorkblansh/widehook/issues"
+    "url": "https://github.com/yorkblansh/widehook.js/issues"
   },
-  "homepage": "https://github.com/yorkblansh/widehook#readme",
+  "homepage": "https://github.com/yorkblansh/widehook.js#readme",
   "peerDependencies": {
     "react": ">=17.x"
   },
