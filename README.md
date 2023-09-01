@@ -1,6 +1,6 @@
 # One state use wide
 
-- [`mode: 'signal'`](#modes) to prevent rerenders
+- [`mode: 'signal'`](#use-signal-mode-for-prevent-rerenders-in-the-component) to prevent rerenders
   <!-- - [types]() -->
     <!-- - [development](#example2) -->
 
@@ -38,6 +38,7 @@ export const AnotherComponent = () => {
  return <button onClick={() => setMessage('Another')}>{message}</button>
 }
 ```
+
 ![see demo on github](https://github.com/yorkblansh/widehook/blob/master/demo/demo.gif)
 
 ### Use `signal` mode for prevent rerenders in the component
