@@ -39,7 +39,7 @@ export const AnotherComponent = () => {
 }
 ```
 
-![demo](https://github.com/yorkblansh/widehook.js/blob/master/demo/demo.gif)
+![demo](https://github.com/yorkblansh/widehook.js/blob/10f528d5e82d03d9752d9e714c5d7b352659f954/demo/demo.gif)
 
 ### Use `signal` mode for prevent rerenders in the component
 
