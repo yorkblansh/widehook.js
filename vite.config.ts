@@ -33,11 +33,10 @@ export default defineConfig((configEnv) => ({
 		minify: true,
 
 		lib: {
-			formats: ['es', 'cjs'],
+			formats: ['es'],
 			entry: resolve('src', 'widehook.ts'),
 			name: 'ReactFeatureFlag',
-			fileName: (format, entryName) =>
-				`widehook${format === 'es' ? '.es' : ''}.js`,
+			fileName: (format, entryName) => `widehook${''}.js`,
 		},
 		rollupOptions: {
 			// input: ['example'],
