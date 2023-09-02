@@ -21,7 +21,7 @@ export const useWideMessage = createWideHook({
 
 ### Use in each component
 
-`setMessage` will update state in both components
+`setMessage` will update `message` state in both components
 
 ```ts
 //MainComponent.tsx
@@ -38,6 +38,7 @@ export const AnotherComponent = () => {
  return <button onClick={() => setMessage('Another')}>{message}</button>
 }
 ```
+
 ![demo](https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/demo.gif)
 
 ### Use `signal` mode for prevent rerenders in the component
