@@ -38,8 +38,7 @@ export const AnotherComponent = () => {
  return <button onClick={() => setMessage('Another')}>{message}</button>
 }
 ```
-
-![see demo on github](https://github.com/yorkblansh/widehook/blob/master/demo/demo.gif)
+![demo](https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/demo.gif)
 
 ### Use `signal` mode for prevent rerenders in the component
 
