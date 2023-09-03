@@ -1,8 +1,7 @@
-import { StrictMode } from "react"
-import ReactDOM from "react-dom"
-import "./scss/index.scss"
-import { MainComponent } from "./components/MainComponent"
-import { AnotherComponent } from "./components/AnotherComponent"
+import ReactDOM from 'react-dom'
+import './scss/index.scss'
+import { MainComponent } from './components/MainComponent'
+import { AnotherComponent } from './components/AnotherComponent'
 
 const PlayGround = () => {
 	return (
@@ -13,4 +12,4 @@ const PlayGround = () => {
 	)
 }
 
-ReactDOM.render(<PlayGround />, document.getElementById("root"))
+ReactDOM.render(<PlayGround />, document.getElementById('root'))
