@@ -36,7 +36,7 @@ export default defineConfig((configEnv) => ({
 			formats: ['es'],
 			entry: resolve('src', 'widehook.ts'),
 			name: 'ReactFeatureFlag',
-			fileName: (format, entryName) => `widehook${''}.js`,
+			fileName: (format, entryName) => `widehook.js`,
 		},
 		rollupOptions: {
 			// input: ['example'],
