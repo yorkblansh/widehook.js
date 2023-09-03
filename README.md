@@ -1,4 +1,4 @@
-# One state use wide
+![demo](https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/logo.png)
 
 - [`mode: 'signal'`](#use-signal-mode-for-prevent-rerenders-in-the-component) to prevent rerenders
   <!-- - [types]() -->
