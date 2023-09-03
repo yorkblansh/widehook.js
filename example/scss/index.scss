@@ -51,3 +51,12 @@ code {
 		}
 	}
 }
+
+.item {
+	display: flex;
+	justify-content: space-between;
+}
+
+.visible {
+	background-color: #427bed;
+}

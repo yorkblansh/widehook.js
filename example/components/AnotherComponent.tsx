@@ -1,17 +1,16 @@
-import { useWideMessage } from 'example/shared/hooks/useWideMessage'
+import { useText } from 'example/hooks/useText'
 import { useState } from 'react'
 
 export const AnotherComponent = () => {
-	const [a, b] = useState('')
+	const [v, setV] = useState('')
+	const [text, setText] = useText()
 
-	const [message, setMessage] = useWideMessage()
-
-	console.log({ a })
+	console.log({ v })
 
 	return (
 		<section>
 			Another Component
-			<button onClick={() => setMessage('Another')}>{message}</button>
+			<button onClick={() => setText('Another Text')}>{text}</button>
 		</section>
 	)
 }

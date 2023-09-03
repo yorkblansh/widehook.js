@@ -1,12 +1,19 @@
-import { useWideMessage } from 'example/shared/hooks/useWideMessage'
+import { useNumber, usePrevNumber } from 'example/hooks/useNumber'
+import { useText } from 'example/hooks/useText'
 
 export const MainComponent = () => {
-	const [message, setMessage] = useWideMessage()
+	const [text, setText] = useText()
+	const [prevNumber, setPrevNumber] = usePrevNumber()
+	const [number, setNumber] = useNumber()
 
 	return (
 		<section>
 			Main Component
-			<button onClick={() => setMessage('One Value')}>{message}</button>
+			<button onClick={() => setText(text + 1)}>{text}</button>
+			<div>
+				<div>prev number: {prevNumber}</div>
+				<div>current number: {number}</div>
+			</div>
 		</section>
 	)
 }
