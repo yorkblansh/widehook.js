@@ -19,7 +19,7 @@ export default defineConfig((configEnv) => ({
 		// }),
 		dts({
 			insertTypesEntry: true,
-			include: ['src/widehook.ts'],
+			include: ['src'],
 			beforeWriteFile: (filePath, content) => ({
 				filePath: filePath.replace('/src', ''),
 				content,

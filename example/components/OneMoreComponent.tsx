@@ -1,6 +1,6 @@
 import { useMessage, useText } from 'example/shared/hooks/useWideMessage'
 
-export const MainComponent = () => {
+export const OneMoreComponent = () => {
 	const [message, setMessage] = useMessage()
 	const [m, s] = useText()
 
