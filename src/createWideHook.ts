@@ -20,16 +20,16 @@ export const createWideHook = <
 	_Mode extends Modes = Mode extends undefined ? 'default' : Mode
 >({
 	key,
-	initState,
+	init,
 	mode,
 	on: hookEventListener,
 }: {
 	key?: string
-	initState: State
+	init: State
 	mode?: Mode
 	on?: HookEventParams<State, void>
 }) => {
-	const subject$ = new BehaviorSubject(initState)
+	const subject$ = new BehaviorSubject(init)
 
 	const service = {
 		emit: (state: State) => subject$.next(state),

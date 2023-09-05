@@ -1,7 +1,7 @@
 export type HookEventParams<State, EventReturn> = (
 	state: State,
 	setState: (newState: State) => void,
-	helpers: HookEventHelpers<State>
+	here: HookEventHelpers<State>
 ) => EventReturn
 
 type HookEventHelpers<State> = {
@@ -12,7 +12,7 @@ type HookEventHelpers<State> = {
 export type HookEvent<State> = (
 	state: State,
 	setState: (newState: State) => void,
-	helpers: HookEventHelpers<State>
+	here: HookEventHelpers<State>
 ) => void
 
 export const createEvent =

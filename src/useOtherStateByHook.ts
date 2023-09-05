@@ -7,7 +7,7 @@ interface AUX<State> {
 	setState: (nextState: State) => void
 }
 
-export const useStateByHook = <
+export const useOtherStateByHook = <
 	State,
 	Mode extends Modes | undefined = undefined,
 	HookReturnType = [

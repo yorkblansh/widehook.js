@@ -1,14 +1,14 @@
 import { createWideHook } from '@widehook'
 import { createEvent } from 'src/createEvent'
-import { useStateByHook } from 'src/useStateByHook'
+import { useOtherStateByHook } from 'src/useOtherStateByHook'
 
 type Text = 'One Text' | 'Another TExt'
 
 export const useText = createWideHook({
-	key: 'k',
-	initState: 'text' as Text,
+	key: 'header label',
+	init: 'something' as Text,
 	mode: 'signal',
-	on: (text, setText) => {
+	on: (text, setText, { prevState }) => {
 		console.log({
 			logFromText: text,
 		})
@@ -22,16 +22,22 @@ export const dedupe = createEvent<string>(
 type Message = 'One Value' | 'Another'
 
 export const useMessage = createWideHook({
-	initState: 'Click' as Message,
-	on: (m, s, { lookFor }) => {
-		const [text, setText] = useStateByHook(useText)
+	init: 'Click' as Message,
+	on: dedupe((message, setState, here) => {
+		const [text, setText, here1] = useOtherStateByHook(useText)
 
-		lookFor(
-			dedupe((message) => {
-				console.log({ dedupedMessage: message })
-			})
-		)
-	},
+		here.lookFor(dedupe((message) => {}))
+
+		console.log({ dedupedMessage: message })
+	}),
+	// on: (message, setMessage, { lookFor }) => {
+
+	// 	lookFor(
+	// 		dedupe((message) => {
+	// 			console.log({ dedupedMessage: message })
+	// 		})
+	// 	)
+	// },
 	mode: 'signal',
 
 	// on: (state, setState, prevState) => {
