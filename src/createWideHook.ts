@@ -1,8 +1,9 @@
 import { BehaviorSubject, map, pairwise } from 'rxjs'
-import { HookEvent, HookEventParams } from './createEvent'
+import { whEventCallback } from './createEvent'
 import { HookState, Modes, UnwrapObservable } from './types'
 import { useEffect, useState } from 'react'
 import { useSignal } from '@preact/signals-react'
+import { useOtherStateByHook } from './useOtherStateByHook'
 
 export type WideState<State, Mode extends Modes | undefined> = [
 	HookState<State>[Mode extends undefined ? 'default' : Mode],
@@ -27,7 +28,7 @@ export const createWideHook = <
 	key?: string
 	init: State
 	mode?: Mode
-	on?: HookEventParams<State, void>
+	on?: whEventCallback<State>
 }) => {
 	const subject$ = new BehaviorSubject(init)
 
@@ -44,7 +45,9 @@ export const createWideHook = <
 	service.on().subscribe({
 		next: ({ prevState }) => {
 			if (hookEventListener) {
-				const lookFor: (event: HookEvent<State>) => void = (hookEvent) => {
+				const lookFor: (event: whEventCallback<State>) => void = (
+					hookEvent
+				) => {
 					hookEvent(
 						service.value(),
 						(state) => {
@@ -66,6 +69,7 @@ export const createWideHook = <
 					{
 						lookFor,
 						prevState,
+						useOtherStateByHook,
 					}
 				)
 			}

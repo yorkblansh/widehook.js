@@ -23,13 +23,16 @@ type Message = 'One Value' | 'Another'
 
 export const useMessage = createWideHook({
 	init: 'Click' as Message,
-	on: dedupe((message, setState, here) => {
-		const [text, setText, here1] = useOtherStateByHook(useText)
 
-		here.lookFor(dedupe((message) => {}))
+	on: dedupe(
+		dedupe((message, setState, here) => {
+			const [text, setText, here1] = useOtherStateByHook(useText)
 
-		console.log({ dedupedMessage: message })
-	}),
+			here.lookFor(dedupe((message) => {}))
+
+			console.log({ dedupedMessage: message })
+		})
+	),
 	// on: (message, setMessage, { lookFor }) => {
 
 	// 	lookFor(

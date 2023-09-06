@@ -1,26 +1,39 @@
-export type HookEventParams<State, EventReturn> = (
+export type whEventCallback<State> = (
 	state: State,
 	setState: (newState: State) => void,
-	here: HookEventHelpers<State>
-) => EventReturn
-
-type HookEventHelpers<State> = {
-	prevState: State
-	lookFor: (event: HookEvent<State>) => void
-}
-
-export type HookEvent<State> = (
-	state: State,
-	setState: (newState: State) => void,
-	here: HookEventHelpers<State>
+	here: HereStuff<State>
 ) => void
 
-export const createEvent =
-	<_State>(cbPredicat: HookEventParams<_State, boolean>) =>
-	<State extends _State>(cbEvent: HookEventParams<State, void>) =>
-	(...cbArgs: Parameters<HookEventParams<State, boolean>>) => {
-		const isEventHappened = cbPredicat(
-			...(cbArgs as unknown as Parameters<HookEventParams<_State, boolean>>)
-		)
-		if (isEventHappened) cbEvent(...cbArgs)
+export type whEventPredicat<State> = (
+	state: State,
+	setState: (newState: State) => void,
+	here: HereStuff<State>
+) => boolean
+
+type HereStuff<State> = {
+	prevState: State
+	lookFor: (event: whEventCallback<State>) => void
+}
+
+type WidehookEvent<_State> = <State extends string>(
+	eventCallback: whEventCallback<State>
+) => whEventCallback<State>
+
+export const createEvent = <GenericState>(
+	eventPredicat: whEventPredicat<GenericState>
+) => {
+	const widehookEvent = <State extends GenericState>(
+		eventCallback: whEventCallback<State>
+	) => {
+		const widehookEventCallback = (
+			...cbArgs: Parameters<whEventCallback<State>>
+		) => {
+			const isPredicatConditionTrue = eventPredicat(
+				...(cbArgs as unknown as Parameters<whEventPredicat<GenericState>>)
+			)
+			if (isPredicatConditionTrue) eventCallback(...cbArgs)
+		}
+		return widehookEventCallback as whEventCallback<State>
 	}
+	return widehookEvent as WidehookEvent<GenericState>
+}
