@@ -7,7 +7,7 @@
 	// "image": "mcr.microsoft.com/devcontainers/base:jammy"
 	"build": {
 		// Path is relative to the devcontainer.json file.
-		"dockerfile": "../Dockerfile.dev"
+		"dockerfile": "../Dockerfile"
 	},
 	"customizations": {
 		"vscode": {
