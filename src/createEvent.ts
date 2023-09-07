@@ -1,18 +1,21 @@
+import { useOtherStateByHook } from './useOtherStateByHook'
+
 export type whEventCallback<State> = (
 	state: State,
 	setState: (newState: State) => void,
-	here: HereStuff<State>
+	here: HereContext<State>
 ) => void
 
 export type whEventPredicat<State> = (
 	state: State,
 	setState: (newState: State) => void,
-	here: HereStuff<State>
+	here: HereContext<State>
 ) => boolean
 
-type HereStuff<State> = {
+export type HereContext<State> = {
 	prevState: State
-	lookFor: (event: whEventCallback<State>) => void
+	lookFor: (eventCallback: whEventCallback<State>) => void
+	useOtherStateByHook: typeof useOtherStateByHook
 }
 
 type WidehookEvent<_State> = <State extends string>(

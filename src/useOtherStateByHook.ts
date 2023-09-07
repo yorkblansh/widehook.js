@@ -1,25 +1,22 @@
+import { HereContext } from './createEvent'
 import { WideHook } from './createWideHook'
-import { HookState, Modes } from './types'
+import { Modes } from './types'
 
-interface AUX<State> {
+export interface AUX<State> {
 	key: string
 	state: () => State
 	setState: (nextState: State) => void
+	hereStuff: HereContext<State>
 }
 
 export const useOtherStateByHook = <
 	State,
-	Mode extends Modes | undefined = undefined,
-	HookReturnType = [
-		HookState<State>[Mode extends undefined ? 'default' : Mode],
-		(newState: State) => void
-	]
-	// WideHook extends (...args: any) => any = () => HookReturnType
+	Mode extends Modes | undefined = undefined
 >(
 	widehook: WideHook<State, Mode>
 ) => {
 	const widehookWithAux = widehook as any
-	const { key, setState, state } = widehookWithAux.aux as AUX<State>
+	const { key, setState, state, hereStuff } = widehookWithAux.aux as AUX<State>
 
-	return [state(), setState] as ReturnType<WideHook<State, Mode>>
+	return [state(), setState, hereStuff] as ReturnType<WideHook<State, Mode>>
 }

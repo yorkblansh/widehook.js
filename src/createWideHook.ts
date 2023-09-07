@@ -1,13 +1,14 @@
 import { BehaviorSubject, map, pairwise } from 'rxjs'
-import { whEventCallback } from './createEvent'
+import { HereContext, whEventCallback } from './createEvent'
 import { HookState, Modes, UnwrapObservable } from './types'
 import { useEffect, useState } from 'react'
 import { useSignal } from '@preact/signals-react'
-import { useOtherStateByHook } from './useOtherStateByHook'
+import { AUX, useOtherStateByHook } from './useOtherStateByHook'
 
 export type WideState<State, Mode extends Modes | undefined> = [
 	HookState<State>[Mode extends undefined ? 'default' : Mode],
-	(newState: State) => void
+	(newState: State) => void,
+	HereContext<State>
 ]
 
 export type WideHook<State, Mode extends Modes | undefined> = () => WideState<
@@ -23,13 +24,15 @@ export const createWideHook = <
 	key,
 	init,
 	mode,
-	on: hookEventListener,
+	on: eventCallback,
 }: {
 	key?: string
 	init: State
 	mode?: Mode
 	on?: whEventCallback<State>
 }) => {
+	const prevStateMap = new Map<'prevState', State>()
+
 	const subject$ = new BehaviorSubject(init)
 
 	const service = {
@@ -42,35 +45,57 @@ export const createWideHook = <
 		value: () => subject$.getValue(),
 	}
 
+	const lookFor: (eventCallback: whEventCallback<State>) => void = (
+		eventCallback
+	) => {
+		eventCallback(
+			service.value(),
+			(state) => {
+				if (service.value() !== state) {
+					setTimeout(() => service.emit(state), 1)
+				}
+			},
+			hereStuff
+		)
+	}
+
+	const hereStuff: HereContext<State> = {
+		lookFor,
+		prevState: prevStateMap.get('prevState') as State,
+		useOtherStateByHook,
+	}
+
 	service.on().subscribe({
 		next: ({ prevState }) => {
-			if (hookEventListener) {
-				const lookFor: (event: whEventCallback<State>) => void = (
-					hookEvent
+			if (eventCallback) {
+				const lookFor: (eventCallback: whEventCallback<State>) => void = (
+					eventCallback
 				) => {
-					hookEvent(
+					eventCallback(
 						service.value(),
 						(state) => {
 							if (service.value() !== state) {
 								setTimeout(() => service.emit(state), 1)
 							}
 						},
-						{ lookFor, prevState }
+						hereStuff
 					)
 				}
 
-				hookEventListener(
+				const hereStuff: HereContext<State> = {
+					lookFor,
+					prevState,
+					useOtherStateByHook,
+				}
+
+				eventCallback(
 					service.value(),
 					(state) => {
 						if (service.value() !== state) {
 							setTimeout(() => service.emit(state), 1)
 						}
 					},
-					{
-						lookFor,
-						prevState,
-						useOtherStateByHook,
-					}
+					hereStuff
 				)
 			}
 		},
@@ -78,24 +103,31 @@ export const createWideHook = <
 
 	const widehook = () => {
 		const [state, setState] = useState(service.value())
+		const [prevState, setPrevState] = useState(service.value())
 		const signalState = useSignal(service.value())
+		const signalPrevState = useSignal(service.value())
 
 		useEffect(() => {
 			setState(service.value())
 
-			//TODO getStateByMode
-			const setStateByMode = (nextState: State) => {
+			const setStateByMode = ({
+				prevState,
+				state,
+			}: UnwrapObservable<ReturnType<(typeof service)['on']>>) => {
 				if (mode === 'signal') {
-					signalState.value = nextState
+					signalState.value = state
+					signalPrevState.value = prevState
 				} else {
-					setState(nextState)
+					setState(state)
+					setPrevState(prevState)
+					prevStateMap.set('prevState', prevState)
 				}
 			}
 
-			const handleState = ({
-				state,
-			}: UnwrapObservable<ReturnType<(typeof service)['on']>>) => {
-				setStateByMode(state)
+			const handleState = (
+				states: UnwrapObservable<ReturnType<(typeof service)['on']>>
+			) => {
+				setStateByMode(states)
 			}
 
 			const subscription = service.on().subscribe({
@@ -116,9 +148,30 @@ export const createWideHook = <
 
 		const finalState = stateMap[mode ? mode : 'default']
 
+		const lookFor: (eventCallback: whEventCallback<State>) => void = (
+			eventCallback
+		) => {
+			eventCallback(
+				service.value(),
+				(state) => {
+					if (service.value() !== state) {
+						setTimeout(() => service.emit(state), 1)
+					}
+				},
+				hereStuff
+			)
+		}
+
+		const hereStuff: HereContext<State> = {
+			lookFor,
+			prevState,
+			useOtherStateByHook,
+		}
+
 		return [
 			finalState,
 			(newState: State) => service.emit(newState),
+			hereStuff,
 		] as WideState<State, Mode>
 	}
 
@@ -126,7 +179,12 @@ export const createWideHook = <
 		key,
 		state: service.value,
 		setState: service.emit,
-	}
+		hereStuff: {
+			lookFor,
+			prevState: prevStateMap.get('prevState') as State,
+			useOtherStateByHook,
+		} as HereContext<State>,
+	} as AUX<State>
 
 	return widehook as WideHook<State, _Mode>
 }
