@@ -1,7 +1,7 @@
 import { useMessage } from 'example/shared/hooks/useWideMessage'
 
 export const OneMoreComponent = () => {
-	const [message, setMessage, here] = useMessage()
+	const [message, setMessage] = useMessage()
 
 	return (
 		<section>

@@ -36,19 +36,14 @@ export const dedupe = createEvent<string>(
 // 		})
 // 	)
 // )
+// inText.lookFor((text, setState) => {})
+// 		setText('Another TExt')
 
 type Message = 'One Value' | 'Another'
 
 export const useMessage = createWideHook({
 	init: 'Click' as Message,
 	on: (message, setMessage, here) => {
-		const [text, setText, inText] = here.useOtherStateByHook(useText)
-		inText.lookFor((text, setState) => {})
-		setText('Another TExt')
-
-		// setTimeout(() => {
-		// 	console.log({ message, text })
-		// }, 900)
+		const [text, setText] = here.useOtherStateByHook(useText)
 	},
-	mode: 'signal',
 })

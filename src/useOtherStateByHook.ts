@@ -1,5 +1,5 @@
 import { HereContext } from './createEvent'
-import { WideHook } from './createWideHook'
+import { OtherWideHook, WideHook } from './createWideHook'
 import { Modes } from './types'
 
 export interface AUX<State> {
@@ -10,13 +10,13 @@ export interface AUX<State> {
 }
 
 export const useOtherStateByHook = <
-	State,
-	Mode extends Modes | undefined = undefined
+	State
+	// Mode extends Modes | undefined = undefined
 >(
-	widehook: WideHook<State, Mode>
+	widehook: WideHook<State>
 ) => {
 	const widehookWithAux = widehook as any
 	const { key, setState, state, hereStuff } = widehookWithAux.aux as AUX<State>
 
-	return [state(), setState, hereStuff] as ReturnType<WideHook<State, Mode>>
+	return [state(), setState, hereStuff] as ReturnType<OtherWideHook<State>>
 }

@@ -5,21 +5,41 @@ import { useEffect, useState } from 'react'
 import { useSignal } from '@preact/signals-react'
 import { AUX, useOtherStateByHook } from './useOtherStateByHook'
 
-export type WideState<State, Mode extends Modes | undefined> = [
-	HookState<State>[Mode extends undefined ? 'default' : Mode],
+export type WideState<
+	State
+	// Mode extends Modes | undefined
+> = [
+	State,
+	// HookState<State>[Mode extends undefined ? 'default' : Mode],
+	(newState: State) => void
+	// HereContext<State>
+]
+
+export type OtherWideState<
+	State
+	// Mode extends Modes | undefined
+> = [
+	State,
+	// HookState<State>[Mode extends undefined ? 'default' : Mode],
 	(newState: State) => void,
 	HereContext<State>
 ]
 
-export type WideHook<State, Mode extends Modes | undefined> = () => WideState<
-	State,
-	Mode
->
+export type WideHook<
+	State
+	// Mode extends Modes | undefined
+> = () => WideState<State>
+// Mode
+
+export type OtherWideHook<
+	State
+	// Mode extends Modes | undefined
+> = () => OtherWideState<State>
 
 export const createWideHook = <
-	State,
-	Mode extends Modes | undefined = undefined,
-	_Mode extends Modes = Mode extends undefined ? 'default' : Mode
+	State
+	// Mode extends Modes | undefined = undefined,
+	// _Mode extends Modes = Mode extends undefined ? 'default' : Mode
 >({
 	key,
 	init,
@@ -28,7 +48,7 @@ export const createWideHook = <
 }: {
 	key?: string
 	init: State
-	mode?: Mode
+	mode?: Modes
 	on?: whEventCallback<State>
 }) => {
 	const prevStateMap = new Map<'prevState', State>()
@@ -171,8 +191,7 @@ export const createWideHook = <
 		return [
 			finalState,
 			(newState: State) => service.emit(newState),
-			hereStuff,
-		] as WideState<State, Mode>
+		] as WideState<State>
 	}
 
 	widehook.aux = {
@@ -186,5 +205,5 @@ export const createWideHook = <
 		} as HereContext<State>,
 	} as AUX<State>
 
-	return widehook as WideHook<State, _Mode>
+	return widehook as WideHook<State>
 }
