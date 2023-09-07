@@ -3,7 +3,7 @@ import { createEvent } from 'src/createEvent'
 
 type Text = 'One Text' | 'Another TExt'
 
-export const useText = createWideHook({
+export const useTodo = createWideHook({
 	init: 'text' as Text,
 })
 // 	key: 'header label',
@@ -39,11 +39,14 @@ export const dedupe = createEvent<string>(
 // inText.lookFor((text, setState) => {})
 // 		setText('Another TExt')
 
-type Message = 'One Value' | 'Another'
+type Action = 'One Value' | 'Another'
 
-export const useMessage = createWideHook({
-	init: 'Click' as Message,
-	on: (message, setMessage, here) => {
-		const [text, setText] = here.useOtherStateByHook(useText)
+export const useAction = createWideHook({
+	init: 'Click' as Action,
+	on: (action, setAction, here) => {
+		const [todo, setTodo] = here.useOtherStateByHook(useTodo)
+
+		if (action === 'Another') {
+		}
 	},
 })

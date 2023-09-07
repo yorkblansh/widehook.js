@@ -1,7 +1,7 @@
-import { useMessage } from 'example/shared/hooks/useWideMessage'
+import { useAction } from 'example/shared/hooks/useWideMessage'
 
 export const MainComponent = () => {
-	const [message, setMessage] = useMessage()
+	const [message, setMessage] = useAction()
 
 	return (
 		<section>
