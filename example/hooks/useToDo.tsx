@@ -1,6 +1,7 @@
 import { createWideHook } from '@widehook'
-import { ItemProps } from 'example/components/todo/Item'
+import { TodoItem } from 'example/components/todo/Item'
 
 export const useToDo = createWideHook({
-	init: [{ key: 'first', isDone: false }] as ItemProps[],
+	init: [{ id: 0, name: 'first', isDone: false }] as TodoItem[],
+	mode: 'default',
 })

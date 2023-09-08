@@ -1,13 +1,16 @@
-export interface ItemProps {
-	key: string
+import { RemoveItemButton } from './RemoveItemButton'
+
+export interface TodoItem {
+	id: number
+	name: string
 	isDone: boolean
 }
 
-export const Item = ({ isDone, key }: ItemProps) => {
+export const Item = ({ isDone, name: key }: TodoItem) => {
 	return (
-		<div className="item">
+		<>
 			<div>{key}</div>
 			<div>{isDone}</div>
-		</div>
+		</>
 	)
 }

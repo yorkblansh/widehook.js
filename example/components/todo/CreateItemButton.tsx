@@ -1,7 +1,16 @@
 import { useToDo } from 'example/hooks/useToDo'
+import { useState } from 'react'
 
-export const CreateItemButton = () => {
-	const [todo, setToDo] = useToDo()
+interface Props {
+	onCLick: () => void
+}
 
-	return <button></button>
+export const RRRRItemButton = ({ onCLick }: Props) => {
+	// const [a, b] = useState('')
+
+	return (
+		<div>
+			<button onClick={onCLick}>Add Item</button>
+		</div>
+	)
 }
