@@ -1,12 +1,14 @@
-import { useAction } from 'example/shared/hooks/useWideMessage'
+import { useText } from 'example/hooks/useText'
 
 export const OneMoreComponent = () => {
-	const [message, setMessage] = useAction()
+	const [text, setText] = useText()
 
 	return (
 		<section>
 			Main Component
-			<button onClick={() => setMessage('One Value')}>{message}</button>
+			<button onClick={() => setText('Completely Different Text')}>
+				{text}
+			</button>
 		</section>
 	)
 }

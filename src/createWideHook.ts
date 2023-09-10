@@ -1,118 +1,79 @@
-import { BehaviorSubject, map, pairwise } from 'rxjs'
-import { HereContext, whEventCallback } from './createEvent'
-import { HookState, Modes, UnwrapObservable } from './types'
+import {
+	PassageContext,
+	Modes,
+	UnwrapObservable,
+	WideHook,
+	WideState,
+	PassageCallback,
+} from './types'
 import { useEffect, useState } from 'react'
 import { useSignal } from '@preact/signals-react'
-import { AUX, useOtherStateByHook } from './useOtherStateByHook'
+import { AUX, takeOtherStateByHook } from './takeOtherStateByHook'
+import { RxService } from './RxService'
 
-export type WideState<
-	State
-	// Mode extends Modes | undefined
-> = [
-	State,
-	// HookState<State>[Mode extends undefined ? 'default' : Mode],
-	(newState: State) => void
-	// HereContext<State>
-]
-
-export type OtherWideState<
-	State
-	// Mode extends Modes | undefined
-> = [
-	State,
-	// HookState<State>[Mode extends undefined ? 'default' : Mode],
-	(newState: State) => void,
-	HereContext<State>
-]
-
-export type WideHook<
-	State
-	// Mode extends Modes | undefined
-> = () => WideState<State>
-// Mode
-
-export type OtherWideHook<
-	State
-	// Mode extends Modes | undefined
-> = () => OtherWideState<State>
-
-export const createWideHook = <
-	State
-	// Mode extends Modes | undefined = undefined,
-	// _Mode extends Modes = Mode extends undefined ? 'default' : Mode
->({
+export const createWideHook = <State>({
 	key,
 	init,
 	mode,
-	on: eventCallback,
+	on: CB,
 }: {
 	key?: string
 	init: State
 	mode?: Modes
-	on?: whEventCallback<State>
+	on?: PassageCallback<State>
 }) => {
 	const prevStateMap = new Map<'prevState', State>()
 
-	const subject$ = new BehaviorSubject(init)
+	const rxService = RxService(init)
 
-	const service = {
-		emit: (state: State) => subject$.next(state),
-		on: () =>
-			subject$.pipe(
-				pairwise(),
-				map(([prevState, state]) => ({ prevState, state }))
-			),
-		value: () => subject$.getValue(),
-	}
-
-	const lookFor: (eventCallback: whEventCallback<State>) => void = (
+	const lookFor: (eventCallback: PassageCallback<State>) => void = (
 		eventCallback
 	) => {
 		eventCallback(
-			service.value(),
+			rxService.value(),
 			(state) => {
-				if (service.value() !== state) {
-					setTimeout(() => service.emit(state), 1)
+				if (rxService.value() !== state) {
+					setTimeout(() => rxService.emit(state), 1)
 				}
 			},
 			hereStuff
 		)
 	}
 
-	const hereStuff: HereContext<State> = {
+	const hereStuff: PassageContext<State> = {
 		lookFor,
-		prevState: prevStateMap.get('prevState') as State,
-		useOtherStateByHook,
+		prevState: rxService.previousValue(),
+		takeOtherStateByHook: takeOtherStateByHook,
 	}
 
-	service.on().subscribe({
+	rxService.on().subscribe({
 		next: ({ prevState }) => {
-			if (eventCallback) {
-				const lookFor: (eventCallback: whEventCallback<State>) => void = (
+			if (CB) {
+				const lookFor: (eventCallback: PassageCallback<State>) => void = (
 					eventCallback
 				) => {
 					eventCallback(
-						service.value(),
+						rxService.value(),
 						(state) => {
-							if (service.value() !== state) {
-								setTimeout(() => service.emit(state), 1)
+							if (rxService.value() !== state) {
+								setTimeout(() => rxService.emit(state), 1)
 							}
 						},
 						hereStuff
 					)
 				}
 
-				const hereStuff: HereContext<State> = {
+				const hereStuff: PassageContext<State> = {
 					lookFor,
 					prevState,
-					useOtherStateByHook,
+					takeOtherStateByHook: takeOtherStateByHook,
 				}
 
-				eventCallback(
-					service.value(),
+				CB(
+					rxService.value(),
 					(state) => {
-						if (service.value() !== state) {
-							setTimeout(() => service.emit(state), 1)
+						if (rxService.value() !== state) {
+							setTimeout(() => rxService.emit(state), 1)
 						}
 					},
 					hereStuff
@@ -122,18 +83,18 @@ export const createWideHook = <
 	})
 
 	const widehook = () => {
-		const [state, setState] = useState(service.value())
-		const [prevState, setPrevState] = useState(service.value())
-		const signalState = useSignal(service.value())
-		const signalPrevState = useSignal(service.value())
+		const [state, setState] = useState(rxService.value())
+		const [prevState, setPrevState] = useState(rxService.value())
+		const signalState = useSignal(rxService.value())
+		const signalPrevState = useSignal(rxService.value())
 
 		useEffect(() => {
-			setState(service.value())
+			setState(rxService.value())
 
 			const setStateByMode = ({
 				prevState,
 				state,
-			}: UnwrapObservable<ReturnType<(typeof service)['on']>>) => {
+			}: UnwrapObservable<ReturnType<(typeof rxService)['on']>>) => {
 				if (mode === 'signal') {
 					signalState.value = state
 					signalPrevState.value = prevState
@@ -145,12 +106,12 @@ export const createWideHook = <
 			}
 
 			const handleState = (
-				states: UnwrapObservable<ReturnType<(typeof service)['on']>>
+				states: UnwrapObservable<ReturnType<(typeof rxService)['on']>>
 			) => {
 				setStateByMode(states)
 			}
 
-			const subscription = service.on().subscribe({
+			const subscription = rxService.on().subscribe({
 				next: handleState,
 				error: (error) => console.log('This is called when error occurs'),
 				complete: () => console.log('This is called when subscription closed'),
@@ -168,41 +129,41 @@ export const createWideHook = <
 
 		const finalState = stateMap[mode ? mode : 'default']
 
-		const lookFor: (eventCallback: whEventCallback<State>) => void = (
+		const lookFor: (eventCallback: PassageCallback<State>) => void = (
 			eventCallback
 		) => {
 			eventCallback(
-				service.value(),
+				rxService.value(),
 				(state) => {
-					if (service.value() !== state) {
-						setTimeout(() => service.emit(state), 1)
+					if (rxService.value() !== state) {
+						setTimeout(() => rxService.emit(state), 1)
 					}
 				},
 				hereStuff
 			)
 		}
 
-		const hereStuff: HereContext<State> = {
+		const hereStuff: PassageContext<State> = {
 			lookFor,
 			prevState,
-			useOtherStateByHook,
+			takeOtherStateByHook: takeOtherStateByHook,
 		}
 
 		return [
 			finalState,
-			(newState: State) => service.emit(newState),
+			(newState: State) => rxService.emit(newState),
 		] as WideState<State>
 	}
 
 	widehook.aux = {
 		key,
-		state: service.value,
-		setState: service.emit,
-		hereStuff: {
+		state: rxService.value,
+		setState: rxService.emit,
+		context: {
 			lookFor,
-			prevState: prevStateMap.get('prevState') as State,
-			useOtherStateByHook,
-		} as HereContext<State>,
+			prevState: rxService.previousValue(),
+			takeOtherStateByHook: takeOtherStateByHook,
+		} as PassageContext<State>,
 	} as AUX<State>
 
 	return widehook as WideHook<State>

@@ -3,7 +3,7 @@ import { RRRRItemButton } from './CreateItemButton'
 import _ from 'lodash'
 import { useState } from 'react'
 import { RemoveItemButton } from './RemoveItemButton'
-import { useToDo } from 'example/hooks/useToDo'
+import { useToDo } from 'example/hooks/useTodo'
 
 const lastItemOf = (t: TodoItem[]) => _.maxBy(t, (t) => t.id) as TodoItem
 

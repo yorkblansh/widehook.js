@@ -1,4 +1,4 @@
-import { useToDo } from 'example/hooks/useToDo'
+import { useToDo } from 'example/hooks/useTodo'
 
 interface Props {
 	onCLick: React.MouseEventHandler<HTMLButtonElement>

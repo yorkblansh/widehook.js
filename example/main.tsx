@@ -9,11 +9,11 @@ import { Panel } from './components/panel/Panel'
 const PlayGround = () => {
 	return (
 		<div className="playground">
-			<ToDo />
-			<Panel />
-			{/* <MainComponent />
+			{/* <ToDo />
+			<Panel /> */}
+			<MainComponent />
 			<AnotherComponent />
-			<OneMoreComponent /> */}
+			<OneMoreComponent />
 		</div>
 	)
 }
