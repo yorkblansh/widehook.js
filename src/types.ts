@@ -5,7 +5,7 @@ export type UnwrapObservable<T> = T extends Observable<infer U> ? U : never
 
 export type Modes = 'signal' | 'default'
 
-export type WideState<State> = [State, (newState: State) => void]
+export type WideState<State> = [() => State, (newState: State) => void]
 
 export type OtherWideState<State> = [
 	() => State,
@@ -18,13 +18,13 @@ export type WideHook<State> = () => WideState<State>
 export type OtherWideHook<State> = () => OtherWideState<State>
 
 export type PassageContext<State> = {
-	prevState: State
+	prevState: () => State
 	lookFor: (epithetCallback: PassageCallback<State>) => void
 	takeOtherStateByHook: typeof takeOtherStateByHook
 }
 
 export type PassageCallback<State> = (
-	state: State,
+	state: () => State,
 	setState: (newState: State) => void,
 	here: PassageContext<State>
 ) => void

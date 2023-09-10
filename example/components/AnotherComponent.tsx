@@ -10,7 +10,7 @@ export const AnotherComponent = () => {
 	return (
 		<section>
 			Another Component
-			<button onClick={() => setText('Another Text')}>{text}</button>
+			<button onClick={() => setText('Another Text')}>{text()}</button>
 		</section>
 	)
 }

@@ -7,7 +7,7 @@ export const OneMoreComponent = () => {
 		<section>
 			Main Component
 			<button onClick={() => setText('Completely Different Text')}>
-				{text}
+				{text()}
 			</button>
 		</section>
 	)

@@ -8,111 +8,65 @@ import {
 } from './types'
 import { useEffect, useState } from 'react'
 import { useSignal } from '@preact/signals-react'
-import { AUX, takeOtherStateByHook } from './takeOtherStateByHook'
-import { RxService } from './RxService'
+import { AUX } from './takeOtherStateByHook'
+import { _rxService } from './_rxService'
+import { _createPassageContext } from './passage/context/_createPassageContext'
 
 export const createWideHook = <State>({
 	key,
 	init,
 	mode,
-	on: CB,
+	on: passageCb,
 }: {
 	key?: string
 	init: State
 	mode?: Modes
 	on?: PassageCallback<State>
 }) => {
-	const prevStateMap = new Map<'prevState', State>()
+	const rxService = _rxService(init)
+	const passageContext = _createPassageContext(rxService)
 
-	const rxService = RxService(init)
-
-	const lookFor: (eventCallback: PassageCallback<State>) => void = (
-		eventCallback
-	) => {
-		eventCallback(
-			rxService.value(),
-			(state) => {
-				if (rxService.value() !== state) {
-					setTimeout(() => rxService.emit(state), 1)
+	if (passageCb)
+		rxService.on().subscribe({
+			next: () => {
+				const state = rxService.value
+				const setState = (state: State) => {
+					if (rxService.value() !== state) {
+						setTimeout(() => rxService.emit(state), 1)
+					}
 				}
+				passageCb(state, setState, passageContext)
 			},
-			hereStuff
-		)
-	}
-
-	const hereStuff: PassageContext<State> = {
-		lookFor,
-		prevState: rxService.previousValue(),
-		takeOtherStateByHook: takeOtherStateByHook,
-	}
-
-	rxService.on().subscribe({
-		next: ({ prevState }) => {
-			if (CB) {
-				const lookFor: (eventCallback: PassageCallback<State>) => void = (
-					eventCallback
-				) => {
-					eventCallback(
-						rxService.value(),
-						(state) => {
-							if (rxService.value() !== state) {
-								setTimeout(() => rxService.emit(state), 1)
-							}
-						},
-						hereStuff
-					)
-				}
-
-				const hereStuff: PassageContext<State> = {
-					lookFor,
-					prevState,
-					takeOtherStateByHook: takeOtherStateByHook,
-				}
-
-				CB(
-					rxService.value(),
-					(state) => {
-						if (rxService.value() !== state) {
-							setTimeout(() => rxService.emit(state), 1)
-						}
-					},
-					hereStuff
-				)
-			}
-		},
-	})
+		})
 
 	const widehook = () => {
-		const [state, setState] = useState(rxService.value())
-		const [prevState, setPrevState] = useState(rxService.value())
-		const signalState = useSignal(rxService.value())
-		const signalPrevState = useSignal(rxService.value())
+		// const [state, setState] = useState(rxService.value())
+		// const signalState = useSignal(rxService.value())
+		// const signalPrevState = useSignal(rxService.value())
 
 		useEffect(() => {
-			setState(rxService.value())
+			// setState(rxService.value())
 
-			const setStateByMode = ({
-				prevState,
-				state,
-			}: UnwrapObservable<ReturnType<(typeof rxService)['on']>>) => {
-				if (mode === 'signal') {
-					signalState.value = state
-					signalPrevState.value = prevState
-				} else {
-					setState(state)
-					setPrevState(prevState)
-					prevStateMap.set('prevState', prevState)
-				}
-			}
+			// const setStateByMode = ({
+			// 	prevState,
+			// 	state,
+			// }: UnwrapObservable<ReturnType<(typeof rxService)['on']>>) => {
+			// 	if (mode === 'signal') {
+			// 		signalState.value = state
+			// 		signalPrevState.value = prevState
+			// 	} else {
+			// 		setState(state)
+			// 	}
+			// }
 
-			const handleState = (
-				states: UnwrapObservable<ReturnType<(typeof rxService)['on']>>
-			) => {
-				setStateByMode(states)
-			}
+			// const handleState = (
+			// 	states: UnwrapObservable<ReturnType<(typeof rxService)['on']>>
+			// ) => {
+			// 	setStateByMode(states)
+			// }
 
 			const subscription = rxService.on().subscribe({
-				next: handleState,
+				// next: handleState,
 				error: (error) => console.log('This is called when error occurs'),
 				complete: () => console.log('This is called when subscription closed'),
 			})
@@ -122,35 +76,15 @@ export const createWideHook = <State>({
 			}
 		}, [])
 
-		const stateMap: { [each in Modes]: unknown } = {
-			default: state,
-			signal: signalState,
-		}
+		// const stateMap: { [each in Modes]: unknown } = {
+		// 	default: state,
+		// 	signal: signalState,
+		// }
 
-		const finalState = stateMap[mode ? mode : 'default']
-
-		const lookFor: (eventCallback: PassageCallback<State>) => void = (
-			eventCallback
-		) => {
-			eventCallback(
-				rxService.value(),
-				(state) => {
-					if (rxService.value() !== state) {
-						setTimeout(() => rxService.emit(state), 1)
-					}
-				},
-				hereStuff
-			)
-		}
-
-		const hereStuff: PassageContext<State> = {
-			lookFor,
-			prevState,
-			takeOtherStateByHook: takeOtherStateByHook,
-		}
+		// const finalState = stateMap[mode ? mode : 'default']
 
 		return [
-			finalState,
+			rxService.value,
 			(newState: State) => rxService.emit(newState),
 		] as WideState<State>
 	}
@@ -159,11 +93,7 @@ export const createWideHook = <State>({
 		key,
 		state: rxService.value,
 		setState: rxService.emit,
-		context: {
-			lookFor,
-			prevState: rxService.previousValue(),
-			takeOtherStateByHook: takeOtherStateByHook,
-		} as PassageContext<State>,
+		passageContext,
 	} as AUX<State>
 
 	return widehook as WideHook<State>

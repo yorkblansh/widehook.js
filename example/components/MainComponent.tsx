@@ -6,7 +6,7 @@ export const MainComponent = () => {
 	return (
 		<section>
 			Main Component
-			<button onClick={() => setText('One Text')}>{text}</button>
+			<button onClick={() => setText('One Text')}>{text()}</button>
 		</section>
 	)
 }

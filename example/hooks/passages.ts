@@ -2,7 +2,7 @@ import { createPassage } from 'src/passage/createPassage'
 import { useNumber } from './useNumber'
 
 export const dedupe = createPassage<string>(
-	(state, setState, { prevState }) => state !== prevState
+	(state, setState, { prevState }) => state !== prevState()
 )
 
 export const double = createPassage(

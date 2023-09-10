@@ -1,8 +1,8 @@
 import { BehaviorSubject, map, pairwise } from 'rxjs'
 
-export const RxService = <State>(init: State) => {
+export const _rxService = <State>(init: State) => {
 	const subject$ = new BehaviorSubject(init)
-	const previousValueSubject$ = new BehaviorSubject(subject$.getValue())
+	const previousValueSubject$ = new BehaviorSubject(init)
 
 	return {
 		emit: (state: State) => subject$.next(state),
