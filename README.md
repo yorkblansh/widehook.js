@@ -48,7 +48,7 @@ export const AnotherComponent = () => {
 
 ### Action callback
 
-On each `"setState"` inside the component you can define an action,
+On each `"setState"` call inside the component you can define an action,
 so in the component:
 
 ```ts
