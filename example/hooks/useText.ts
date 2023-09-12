@@ -12,8 +12,9 @@ export const useText = createWideHook({
 
 	init: 'text' as Text,
 	on: (message, setMessage, here) => {
-		//    ^?
-
+		//                        ^?
+		here.prevState()
+		here.takeOtherStateByHook(useNumber)
 		const [number, setNumber, inNumber] = here.takeOtherStateByHook(useNumber)
 		//        ^?
 
