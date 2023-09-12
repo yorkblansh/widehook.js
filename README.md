@@ -7,6 +7,7 @@
   - [Use in each component](#use-in-each-component)
 - [More](#more)
   - [Action callback](#action-callback)
+    - [Callback context](#callback-context)
   - [Take another state](#take-another-state)
   - [Previous state](#previous-state)
     - [Previous state from another state](#previous-state-from-another-state)
@@ -73,6 +74,18 @@ export const useMessage = createWideHook({
     }
   },
 })
+```
+
+#### Callback context
+
+```ts
+export const useText = createWideHook({
+  init: 'text',
+  on: (message, setMessage, here) => {
+  //                          ^? const here: Context<Text>
+  here.prevState() // access previous state
+  here.takeOtherStateByHook(useNumber) allows to use another widehook inside current action callback
+...
 ```
 
 ### Take another state
