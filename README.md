@@ -1,39 +1,42 @@
 ![demo](https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/logo.png)
 
-- [`mode: 'signal'`](#use-signal-mode-for-prevent-rerenders-in-the-component) to prevent rerenders
-  <!-- - [types]() -->
-    <!-- - [development](#example2) -->
+*Instead of million state managers...*
 
-<!-- ## Usage -->
+- [Usage](#usage)
+  - [Create hook](#create-hook)
+  - [Use in each component](#use-in-each-component)
+- [More](#more)
+  - [Action callback](#action-callback)
+  - [Take another state](#take-another-state)
+  - [Previous state](#previous-state)
+    - [Previous state from another state](#previous-state-from-another-state)
+- [TypeScript](#typescript)
+
+## Usage
 
 ### Create hook
 
-Use `as SomeType` to give the state a type
+<!-- Create wide hook with initial value -->
 
 ```ts
-// useWideMessage.ts
 import { createWideHook } from 'widehook'
 
-export const useWideMessage = createWideHook({
-  initState: 'Click' as 'One Value' | 'Another',
+export const useMessage = createWideHook({
+  init: 'text',
 })
 ```
 
 ### Use in each component
 
-`setMessage` will update `message` state in both components
-
 ```ts
-//MainComponent.tsx
 export const MainComponent = () => {
- const [message, setMessage] = useWideMessage()
+ const [message, setMessage] = useMessage()
 
  return <button onClick={() => setMessage('One Value')}>{message}</button>
 }
 
-//AnotherComponent.tsx
 export const AnotherComponent = () => {
- const [message, setMessage] = useWideMessage()
+ const [message, setMessage] = useMessage()
 
  return <button onClick={() => setMessage('Another')}>{message}</button>
 }
@@ -41,18 +44,105 @@ export const AnotherComponent = () => {
 
 ![demo](https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/demo.gif)
 
-### Use `signal` mode for prevent rerenders in the component
+## More
 
-> By default `mode` is `'useState'` and it behaves like a simple useState react hook
+### Action callback
+
+On each `"setState"` inside the component you can define an action,
+so in the component:
 
 ```ts
-// useWideMessage.ts
-import { createWideHook } from 'widehook'
+export const Component = () => {
+ const [message, setMessage] = useMessage()
 
-export const useWideMessage = createWideHook({
- initState: 'Click' as 'One Value' | 'Another',
- mode: 'signal',
+ return <button onClick={() => setMessage('One Value')}>{message}</button>
+}
+
+```
+
+And in the widehook:
+
+```ts
+export const useMessage = createWideHook({
+  init: 'text',
+  on: (message, setMessage) => {
+    console.log({ message })
+
+    if (message === 'specific message') {
+      setMessage('another message')
+    }
+  },
 })
 ```
 
-Mode built on top of [preact-signals/react](https://www.npmjs.com/package/@preact/signals-react)
+### Take another state
+
+Access another state for read and update:
+
+```ts
+export const useText = createWideHook({
+  init: 'text',
+  on: (message, setMessage, here) => {
+    const [number, setNumber] = here.takeOtherStateByHook(useNumber)
+
+    if (message === 'specific message') {
+      setNumber(7)
+    }
+  },
+})
+
+```
+
+> `here` is callback context that contains stuff for accessing previous state and util for using another widehook
+
+### Previous state
+
+Call `prevState()` from callback context:
+
+```ts
+export const useText = createWideHook({
+  init: 'text',
+  on: (message, setMessage, here) => { 
+      console.log({ prevMessage: here.prevState() })
+  },
+})
+```
+
+#### Previous state from another state
+
+```ts
+export const useText = createWideHook({
+  init: 'text',
+  on: (message, setMessage, here) => {
+    const [number, setNumber, inNumber] = here.takeOtherStateByHook(useNumber)
+
+    console.log({ prevMessage: inNumber.prevState() })
+  },
+})
+```
+
+## TypeScript
+
+Declare a type for init value:
+
+```ts
+type Text = 'One Text' | 'Another Text' | 'Completely Different Text'
+
+export const useNumber = createWideHook({
+  init: 7,
+})
+
+export const useText = createWideHook({
+  init: 'text' as Text,
+  on: (message, setMessage, here) => {
+    //    ^? const message: Text
+
+    const [number, setNumber, inNumber] = here.takeOtherStateByHook(useNumber)
+    //        ^? const number: number
+...
+
+export const Component = () => {
+  const [text, setText] = useText()
+  //       ^? const text: Text
+...
+```
