@@ -84,7 +84,7 @@ export const useText = createWideHook({
   on: (message, setMessage, here) => {
   //                          ^? const here: Context<Text>
   here.prevState() // access previous state
-  here.takeOtherStateByHook(useNumber) allows to use another widehook inside current action callback
+  here.takeOtherStateByHook(useNumber) // allows to use another widehook inside current action callback
 ...
 ```
 
