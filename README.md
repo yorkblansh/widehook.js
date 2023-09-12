@@ -60,7 +60,7 @@ export const Component = () => {
 
 ```
 
-And in the widehook:
+In the widehook:
 
 ```ts
 export const useMessage = createWideHook({
