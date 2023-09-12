@@ -15,7 +15,6 @@ export type OtherWideHook<State> = () => OtherWideState<State>
 
 export type Context<State> = {
 	prevState: () => State
-	// lookFor: (epithetCallback: PassageCallback<State>) => void
 	takeOtherStateByHook: typeof takeOtherStateByHook
 }
 
