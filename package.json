@@ -4,7 +4,7 @@
   "description": "Global state for react hooks",
   "license": "MIT",
   "main": "./lib/widehook.js",
-  "module": "./lib/widehook.es.js",
+  "module": "./lib/widehook.js",
   "scripts": {
     "dev": "vite --port 5172 --host",
     "build": "vite build",
