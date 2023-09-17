@@ -1,10 +1,10 @@
-import { Context, OtherWideHook, WideHook } from './types'
+import { ActionContext, OtherWideHook, WideHook } from './types'
 
 export interface AUX<State> {
 	// key: string
 	state: () => State
 	setState: (nextState: State) => void
-	context: Context<State>
+	context: ActionContext<State>
 }
 
 export const takeOtherStateByHook = <State>(widehook: WideHook<State>) => {

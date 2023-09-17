@@ -3,25 +3,23 @@ import type { takeOtherStateByHook } from './takeOtherStateByHook'
 
 export type UnwrapObservable<T> = T extends Observable<infer U> ? U : never
 
-export type Modes = 'signal' | 'default'
-
 export type OtherWideState<State> = [
 	State,
 	(newState: State) => void,
-	Context<State>
+	ActionContext<State>
 ]
 
 export type OtherWideHook<State> = () => OtherWideState<State>
 
-export type Context<State> = {
-	prevState: () => State
+export type ActionContext<State> = {
+	prevStates: () => State[]
 	takeOtherStateByHook: typeof takeOtherStateByHook
 }
 
-export type PassageCallback<State> = (
+export type ActionCallback<State> = (
 	state: State,
 	setState: (newState: State) => void,
-	here: Context<State>
+	context: ActionContext<State>
 ) => void
 
 export type WideHook<State> = () => WideState<State>

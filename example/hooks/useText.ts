@@ -13,12 +13,12 @@ export const useText = createWideHook({
 	init: 'text' as Text,
 	on: (message, setMessage, here) => {
 		//                        ^?
-		here.prevState()
+		here.prevStates()
 		here.takeOtherStateByHook(useNumber)
 		const [number, setNumber, inNumber] = here.takeOtherStateByHook(useNumber)
 		//        ^?
 
-		console.log({ prevMessage: inNumber.prevState() })
+		console.log({ prevMessage: inNumber.prevStates() })
 	},
 })
 
