@@ -1,82 +1,57 @@
-import {
-	Context,
-	Modes,
-	PassageCallback,
-	UnwrapObservable,
-	WideHook,
-	WideState,
-} from './types'
+import { ActionCallback, Context, WideHook, WideHookWithAux } from './types'
 import { useEffect, useState } from 'react'
-import { useSignal } from '@preact/signals-react'
-import { AUX, takeOtherStateByHook } from './takeOtherStateByHook'
-import { rxService as initRxService } from './rxService'
+import { takeOtherStateByHook } from './takeOtherStateByHook'
+import { Store } from './Store'
 
 export const createWideHook = <State>({
-	// key,
 	init,
-	// mode,
-	on: CB,
+	on: actionCallback,
 }: {
 	//TODO for the future dev tools features
 	// key?: string
 	init: State
-	// mode?: Modes
-	on?: PassageCallback<State>
+
+	/**
+	 * action callback reacts on every change of current state
+	 */
+	on?: ActionCallback<State>
 }) => {
-	const mode: Modes = 'default'
-	let isSetInsideComponent: boolean = true
-	const rxService = initRxService(init)
+	let updatedInsideComponent: boolean = true
+	const STORE = new Store(init)
+	const context: Context<State> = {
+		prevStates: STORE.prevValues,
+		takeOtherStateByHook: takeOtherStateByHook,
+	}
 
-	rxService.on().subscribe({
+	/**
+	 * action callback handle
+	 */
+	STORE.listen({
 		next: ({ state }) => {
-			console.log({ state })
-
-			if (CB && isSetInsideComponent) {
-				console.log({ isSetInsideComponent })
-				// const state = rxService.value()
-				const setState = (state: State) => {
-					if (rxService.value() !== state) {
-						setTimeout(() => {
-							isSetInsideComponent = false
-
-							rxService.emit(state)
-						}, 1)
+			if (actionCallback && updatedInsideComponent) {
+				const setState: Parameters<ActionCallback<State>>[1] = (state) => {
+					if (STORE.value() !== state) {
+						updatedInsideComponent = false
+						STORE.set(state)
 					}
 				}
-				const context: Context<State> = {
-					prevState: rxService.previousValue,
-					takeOtherStateByHook: takeOtherStateByHook,
-				}
 
-				CB(state, setState, context)
+				actionCallback(state, setState, context)
 			}
 		},
 	})
 
-	const widehook = () => {
-		const [state, setState] = useState(rxService.value())
-		const signalState = useSignal(rxService.value())
+	const widehook: WideHookWithAux<State> = () => {
+		const [state, setState] = useState(STORE.value())
 
 		useEffect(() => {
-			setState(rxService.value())
+			setState(STORE.value())
 
-			const setStateByMode = ({
-				state,
-			}: UnwrapObservable<ReturnType<(typeof rxService)['on']>>) => {
-				// if (mode === 'signal') {
-				// 	signalState.value = state
-				// } else {
+			const handleState = ({ state }: { prevState: State; state: State }) => {
 				setState(state)
-				// }
 			}
 
-			const handleState = (
-				states: UnwrapObservable<ReturnType<(typeof rxService)['on']>>
-			) => {
-				setStateByMode(states)
-			}
-
-			const subscription = rxService.on().subscribe({
+			const subscription = STORE.listen({
 				next: handleState,
 				error: (error) => console.log('This is called when error occurs'),
 				complete: () => console.log('This is called when subscription closed'),
@@ -87,34 +62,24 @@ export const createWideHook = <State>({
 			}
 		}, [])
 
-		const stateMap: { [each in Modes]: unknown } = {
-			default: state,
-			signal: signalState,
-		}
-
-		const finalState = stateMap[mode ? mode : 'default']
-
 		return [
-			finalState,
-			(newState: State) => {
-				isSetInsideComponent = true
-				return rxService.emit(newState)
+			state,
+			(newState) => {
+				updatedInsideComponent = true
+				return STORE.set(newState)
 			},
-		] as WideState<State>
+		]
 	}
 
+	/**
+	 * aux stuff
+	 */
 	widehook.aux = {
-		// key,
-		state: rxService.value,
-		setState: (state) => {
-			isSetInsideComponent = true
-			return rxService.emit(state)
-		},
-		context: {
-			prevState: rxService.previousValue,
-			takeOtherStateByHook: takeOtherStateByHook,
-		} as Context<State>,
-	} as AUX<State>
+		state: STORE.value,
+		//updatedInsideComponent = true
+		setState: STORE.set,
+		context,
+	}
 
 	return widehook as WideHook<State>
 }

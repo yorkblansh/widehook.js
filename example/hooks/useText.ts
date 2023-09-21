@@ -4,29 +4,21 @@ import { createWideHook } from '@widehook'
 type Text = 'One Text' | 'Another Text' | 'Completely Different Text'
 
 export const useNumber = createWideHook({
-	init: 7,
+  init: 7,
 })
 
 export const useText = createWideHook({
-	//            ^?
-
-	init: 'text' as Text,
-	on: (message, setMessage, here) => {
-		//                        ^?
-		here.prevState()
-		here.takeOtherStateByHook(useNumber)
-		const [number, setNumber, inNumber] = here.takeOtherStateByHook(useNumber)
-		//        ^?
-
-		console.log({ prevMessage: inNumber.prevState() })
-	},
+  init: 'text',
+  on: (text, setText, here) => {
+    const [number, setNumber] = here.takeOtherStateByHook(useNumber)
+  },
 })
 
 export const Component = () => {
-	const [text, setText] = useText()
-	//       ^?
+  const [text, setText] = useText()
+  //       ^?
 
-	return <div>{text}</div>
+  return <div>{text}</div>
 }
 
 // const [number, setNumber, inNumber] = here.takeOtherStateByHook(useNumber)

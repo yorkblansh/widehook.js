@@ -8,6 +8,6 @@ export const useNumber = createWideHook({
 	init: 0,
 	on(number, setNumber, here) {
 		const [prevNumber, setPrevState] = here.takeOtherStateByHook(usePrevNumber)
-		setPrevState(here.prevState())
+		setPrevState(here.prevStates())
 	},
 })
