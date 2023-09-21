@@ -7,7 +7,7 @@ export const Panel = () => {
 	return (
 		<div>
 			<div>visible: {visible}</div>
-			<div>total: </div>
+			<div>total: {todo.length}</div>
 		</div>
 	)
 }

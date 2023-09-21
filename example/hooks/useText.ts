@@ -1,33 +1,68 @@
 import { createWideHook } from '@widehook'
-// import { useNumber } from './useNumber'
 
 type Text = 'One Text' | 'Another Text' | 'Completely Different Text'
 
 export const useNumber = createWideHook({
-	init: 7,
-})
+	init: 3,
+	on(state, setNumber) {
+		// setTimeout(() => {
+		// 	setNumber(4)
+		// 	setTimeout(() => {
+		// 		setNumber(5)
+		// 	}, 2000)
+		// }, 2000)
 
-export const useText = createWideHook({
-	//            ^?
-
-	init: 'text' as Text,
-	on: (message, setMessage, here) => {
-		//                        ^?
-		here.prevStates()
-		here.takeOtherStateByHook(useNumber)
-		const [number, setNumber, inNumber] = here.takeOtherStateByHook(useNumber)
-		//        ^?
-
-		console.log({ prevMessage: inNumber.prevStates() })
+		console.log(state)
 	},
 })
 
-export const Component = () => {
-	const [text, setText] = useText()
-	//       ^?
+export const useText = createWideHook({
+	init: 'text' as Text,
+	on(text, setText, { effect, fromHook }) {
+		console.log(text)
 
-	return <div>{text}</div>
-}
+		// effect(() => {
+		// 	// console.log('start')
+
+		// 	setTimeout(() => {
+		// 		setText('kkkkkkk')
+		// 		setTimeout(() => {
+		// 			setText('Completely Different Text')
+		// 		}, 2000)
+		// 	}, 2000)
+
+		// 	return () => {
+		// 		// console.log('finish')
+		// 	}
+		// })
+
+		// console.log('middle')
+		//  externalCall: true
+		// const [number, setNumber, inNumber] = fromHook(useNumber)
+		// setNumber('qqqq')
+		const [number, setNumber] = fromHook(useNumber)
+		if (text === 'Completely Different Text') {
+			setNumber('111')
+			// socket.emit('smth')
+			// socket.on('smth', (data: string) => {
+			// 	setNumber(data)
+			// 	setText('One Text')
+			// })
+		}
+		if (text === 'One Text') {
+			setNumber('222')
+			// Socket.off('jjhjkhk')
+		}
+		// console.log(inNumber.prevStates())
+	},
+})
+
+// export const Component = () => {
+// 	const [text, setText] = useText()
+// 	//       ^?
+
+// 	return <div>{text}</div>
+// }
 
 // const [number, setNumber, inNumber] = here.takeOtherStateByHook(useNumber)
 

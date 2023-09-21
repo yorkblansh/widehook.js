@@ -1,67 +1,66 @@
-import { ActionCallback, ActionContext, WideHook, WideState } from './types'
+import type { WideHook, WideHookWithAux } from './types'
 import { useEffect, useState } from 'react'
-import { AUX, takeOtherStateByHook } from './takeOtherStateByHook'
-import { StateService } from './StateService'
+import { fromHook } from './fromHook'
+import { initStore } from './initStore'
+import type { ActionCallback, Scope } from './types/ActionCallback'
 
 export const createWideHook = <State>({
 	init,
-	on: actionCallback,
+	on: ACTION_CALLBACK,
 }: {
-	//TODO for the future dev tools features
-	// key?: string
+	/**
+	 * initial value
+	 */
 	init: State
-	on?: ActionCallback<State>
-}) => {
-	let isSetInsideComponent: boolean = true
-	const stateService = StateService(init)
 
 	/**
-	 * handling action callback
+	 * action callback reacts on every change of current state
 	 */
-	stateService.listen({
-		next: ({ state }) => {
-			if (actionCallback && isSetInsideComponent) {
-				const setState = (state: State) => {
-					if (stateService.value() !== state) {
-						setTimeout(() => {
-							isSetInsideComponent = false
+	on?: ActionCallback<State>
+}) => {
+	let effected: boolean = false
+	let actionHappened: boolean = true
+	const STORE = initStore(init)
 
-							stateService.set(state)
-						}, 1)
-					}
+	const scope: Scope = {
+		fromHook,
+		effect(setup) {
+			if (!effected) {
+				effected = true
+				const after = setup()
+
+				if (typeof after === 'function') {
+					setTimeout(() => {
+						after()
+					}, 1)
 				}
-
-				actionCallback(state, setState, {
-					prevStates: stateService.prevValues,
-					takeOtherStateByHook: takeOtherStateByHook,
-				})
 			}
 		},
-	})
+	}
 
-	const widehook = () => {
-		const [state, setState] = useState(stateService.value())
+	const widehook: WideHookWithAux<State> = () => {
+		const [state, setState] = useState(STORE.value())
 
 		useEffect(() => {
-			setState(stateService.value())
+			setState(STORE.value())
 
-			const setStateByMode = ({
-				state: state,
-			}: {
-				prevState: State
-				state: State
-			}) => {
-				setState(state)
-			}
+			const subscription = STORE.listen({
+				next: ({ currentValue }) => {
+					setState(currentValue)
 
-			const handleState = (states: { prevState: State; state: State }) => {
-				setStateByMode(states)
-			}
+					if (ACTION_CALLBACK && actionHappened) {
+						actionHappened = false
 
-			const subscription = stateService.listen({
-				next: handleState,
-				error: (error) => console.log('This is called when error occurs'),
-				complete: () => console.log('This is called when subscription closed'),
+						ACTION_CALLBACK(
+							currentValue,
+							(nextState) => {
+								actionHappened = true
+								STORE.set(nextState)
+							},
+							scope
+						)
+					}
+				},
 			})
 
 			return () => {
@@ -71,24 +70,25 @@ export const createWideHook = <State>({
 
 		return [
 			state,
-			(newState: State) => {
-				isSetInsideComponent = true
-				return stateService.set(newState)
+			(nextState) => {
+				STORE.set(nextState)
+				actionHappened = true
 			},
-		] as WideState<State>
+		]
 	}
 
+	/**
+	 * passing state functions into aux to use inside {@link fromHook}
+	 * for accessing within another widehook {@link ActionCallback}
+	 */
 	widehook.aux = {
-		state: stateService.value,
-		setState: (state) => {
-			isSetInsideComponent = true
-			return stateService.set(state)
+		state: () => STORE.value(),
+		setState: (nextState) => {
+			actionHappened = true
+			STORE.set(nextState)
 		},
-		context: {
-			prevStates: stateService.prevValues,
-			takeOtherStateByHook: takeOtherStateByHook,
-		} as ActionContext<State>,
-	} as AUX<State>
+		scope,
+	}
 
 	return widehook as WideHook<State>
 }

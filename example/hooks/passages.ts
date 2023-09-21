@@ -2,16 +2,16 @@ import { createPassage } from 'src/passage/createPassage'
 import { useNumber } from './useNumber'
 
 export const dedupe = createPassage<string>(
-	(state, setState, { prevStates: prevState }) => state !== prevState
+	(state, setState, { previousStates: prevState }) => state !== prevState
 )
 
 export const double = createPassage(
-	(state, setState, { prevStates: prevState }) => state === prevState
+	(state, setState, { previousStates: prevState }) => state === prevState
 )
 
 export const lengthToNumberProgression = createPassage<string>(
 	(state, setState, here) => {
-		const [number, setNumber] = here.takeOtherStateByHook(useNumber)
+		const [number, setNumber] = here.fromHook(useNumber)
 
 		if (state.length >= 5) {
 			setNumber(5)

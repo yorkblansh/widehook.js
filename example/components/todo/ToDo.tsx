@@ -1,9 +1,7 @@
-import { Item, TodoItem } from './Item'
-import { RRRRItemButton } from './CreateItemButton'
 import _ from 'lodash'
 import { useState } from 'react'
-import { RemoveItemButton } from './RemoveItemButton'
 import { useToDo } from 'example/hooks/useTodo'
+import type { TodoItem } from 'example/hooks/useTodo'
 
 const lastItemOf = (t: TodoItem[]) => _.maxBy(t, (t) => t.id) as TodoItem
 
@@ -44,26 +42,25 @@ export const ToDo = () => {
 					}}
 				/>
 
-				{todo.map((itemProps, i) => (
-					<div
-						key={i}
-						className={['item', itemProps.isDone ? 'visible' : ''].join(' ')}
-					>
+				{todo.map(({ id, isDone, name }, i) => (
+					<div key={i} className={['item', isDone ? 'visible' : ''].join(' ')}>
 						<input
-							onChange={(e) => {
-								const target = e.target as unknown as { checked: boolean }
-								toggleVisibility(itemProps.id)
-							}}
+							onChange={() => toggleVisibility(id)}
 							type="checkbox"
-							checked={itemProps.isDone}
+							checked={isDone}
 						/>
-						<Item {...itemProps} />
-						<RemoveItemButton onCLick={() => removeItem(itemProps.id)} />
+
+						<div>{name}</div>
+						<div>{isDone}</div>
+
+						<button onClick={() => removeItem(id)}></button>
 					</div>
 				))}
 			</div>
 
-			<RRRRItemButton onCLick={() => addItem(newItemName)} />
+			<div>
+				<button onClick={() => addItem(newItemName)}>Add Item</button>
+			</div>
 		</div>
 	)
 }

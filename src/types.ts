@@ -1,27 +1,18 @@
-import { Observable } from 'rxjs/internal/Observable'
-import type { takeOtherStateByHook } from './takeOtherStateByHook'
+import type { AUX } from './fromHook'
 
-export type UnwrapObservable<T> = T extends Observable<infer U> ? U : never
+export type WideHookWithAux<State> = WideHook<State> & { aux: AUX<State> }
+
+export type WideState<State> = [State, (newState: State) => void]
+
+export type WideHook<State> = () => WideState<State>
 
 export type OtherWideState<State> = [
 	State,
-	(newState: State) => void,
-	ActionContext<State>
+	(newState: State) => void
+	// OtherContext<State>
 ]
 
 export type OtherWideHook<State> = () => OtherWideState<State>
 
-export type ActionContext<State> = {
-	prevStates: () => State[]
-	takeOtherStateByHook: typeof takeOtherStateByHook
-}
-
-export type ActionCallback<State> = (
-	state: State,
-	setState: (newState: State) => void,
-	context: ActionContext<State>
-) => void
-
-export type WideHook<State> = () => WideState<State>
-
-export type WideState<State> = [State, (newState: State) => void]
+// export type OtherContext<State> = undefined
+// Pick<Scope<State>, undefined>

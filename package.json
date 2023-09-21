@@ -47,7 +47,7 @@
     "@types/react-dom": "18.2.7",
     "@vitejs/plugin-react": "4.0.4",
     "babel-eslint": "10.1.0",
-    "bun-types": "^0.8.1",
+    "bun-types": "^1.0.6",
     "eslint": "8.47.0",
     "eslint-config-react-app": "7.0.1",
     "eslint-config-standard": "17.1.0",
@@ -67,7 +67,7 @@
     "vite-plugin-linter": "2.0.3",
     "vite-tsconfig-paths": "4.2.0"
   },
-  "packageManager": "yarn@3.6.3",
+  "packageManager": "yarn@3.6.4",
   "dependencies": {
     "rxjs": "^7.8.1"
   }

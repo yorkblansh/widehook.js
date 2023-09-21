@@ -1,9 +1,9 @@
-import { ActionContext, ActionCallback } from 'src/types'
+import { Scope, ActionCallback } from 'src/types'
 
 export type PassagePredicat<State> = (
 	state: State,
 	setState: (newState: State) => void,
-	here: ActionContext<State>
+	here: Scope<State>
 ) => boolean
 
 export type WidehookPassage<_State> = <State extends string>(
