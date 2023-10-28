@@ -79,5 +79,5 @@ export const useNumber = createWideHook({
 export type ActionCallback<State> = (
 	state: State,
 	setState: (newState: State) => void,
-	scope: Scope<State>
+	scope: Scope
 ) => void
