@@ -8,7 +8,6 @@ import type { Observer } from 'rxjs'
  */
 export const initStore = <T>(init: T) => {
 	const value$ = new BehaviorSubject(init)
-	// const previousValues: Value[] = []
 
 	return {
 		set: (nextValue: T) => value$.next(nextValue),
@@ -19,16 +18,10 @@ export const initStore = <T>(init: T) => {
 				.pipe(
 					pairwise(),
 					map(([previousValue, currentValue]) => {
-						// console.log({ currentValue })
-						// if (previousValue !== previousValues[previousValues.length - 1]) {
-						// previousValues.push(previousValue)
-						// }
-
 						return { previousValue, currentValue }
 					})
 				)
 				.subscribe(callbacks),
 		value: () => value$.getValue(),
-		// previousValues: () => previousValues,
 	}
 }

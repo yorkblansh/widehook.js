@@ -1,5 +1,5 @@
-import type { OtherWideHook, WideHook, WideHookWithAux } from './types'
-import type { Scope } from './types/ActionCallback'
+import type { OtherWideHook, WideHook, WideHookWithAux } from '../types'
+import type { Scope } from '../types/ActionCallback'
 
 export interface AUX<State> {
 	state: () => State
