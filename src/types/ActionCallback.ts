@@ -1,5 +1,3 @@
-import { fromHook } from '../fromHook'
-
 type after = () => void
 
 export type Scope = {
@@ -24,7 +22,7 @@ const useText = createWideHook({
  * ---
  * @returns array with `[state, setState]` similar to action callback props
  */
-	fromHook: typeof fromHook
+	// fromHook: typeof fromHook
 
 	/**
    *
