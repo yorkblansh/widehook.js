@@ -1,10 +1,10 @@
-import type { WideHook, WideHookWithAux } from './types'
+import type { WideHook, WideHookWithAux, WideState } from './types'
 import { useEffect, useState } from 'react'
-import { fromHook } from './fromHook'
-import { initStore } from './initStore'
+import { fromHook } from './utils/fromHook'
+import { initStore } from './utils/initStore'
 import type { ActionCallback, Scope } from './types/ActionCallback'
 
-export const createWideHook = <State>({
+export function createWideHook<State>({
 	init,
 	on: ACTION_CALLBACK,
 }: {
@@ -17,13 +17,12 @@ export const createWideHook = <State>({
 	 * action callback reacts on every change of current state
 	 */
 	on?: ActionCallback<State>
-}) => {
+}): WideHook<State> {
 	let effected: boolean = false
 	let actionHappened: boolean = true
 	const STORE = initStore(init)
 
 	const scope: Scope = {
-		fromHook,
 		effect(setup) {
 			if (!effected) {
 				effected = true
@@ -38,7 +37,7 @@ export const createWideHook = <State>({
 		},
 	}
 
-	const widehook: WideHookWithAux<State> = () => {
+	function widehook() {
 		const [state, setState] = useState(STORE.value())
 
 		useEffect(() => {
@@ -70,7 +69,7 @@ export const createWideHook = <State>({
 
 		return [
 			state,
-			(nextState) => {
+			(nextState: State) => {
 				STORE.set(nextState)
 				actionHappened = true
 			},
@@ -83,12 +82,27 @@ export const createWideHook = <State>({
 	 */
 	widehook.aux = {
 		state: () => STORE.value(),
-		setState: (nextState) => {
+		setState: (nextState: State) => {
 			actionHappened = true
 			STORE.set(nextState)
 		},
 		scope,
 	}
 
-	return widehook as WideHook<State>
+	return () => {
+		try {
+			return widehook() as WideState<State>
+		} catch (error) {
+			if (error) {
+				const targetError =
+					'Invalid hook call. Hooks can only be called inside of the body of a function component'
+
+				if (error.toString().includes(targetError)) {
+					console.info('Hook was called outside react component')
+				}
+			}
+
+			return fromHook(widehook as WideHookWithAux<State>)
+		}
+	}
 }

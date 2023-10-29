@@ -1,4 +1,4 @@
-import type { AUX } from './fromHook'
+import type { AUX } from './utils/fromHook'
 
 export type WideHookWithAux<State> = WideHook<State> & { aux: AUX<State> }
 
