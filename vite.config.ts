@@ -49,6 +49,7 @@ export default defineConfig((configEnv) => ({
 	// root: 'example',
 	build: {
 		outDir: 'lib',
+		sourcemap: true,
 		minify: true,
 		lib: {
 			formats: ['es'],
