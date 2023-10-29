@@ -1,24 +1,17 @@
-import { createWideHook } from '@widehook'
+import { createWideHook, fromHook } from '@widehook'
 
 type Text = 'One Text' | 'Another Text' | 'Completely Different Text'
 
 export const useNumber = createWideHook({
 	init: 3,
 	on(state, setNumber) {
-		// setTimeout(() => {
-		// 	setNumber(4)
-		// 	setTimeout(() => {
-		// 		setNumber(5)
-		// 	}, 2000)
-		// }, 2000)
-
 		console.log(state)
 	},
 })
 
 export const useText = createWideHook({
 	init: 'text' as Text,
-	on(text, setText, { effect, fromHook }) {
+	on(text, setText, { effect }) {
 		console.log(text)
 
 		// effect(() => {
@@ -40,7 +33,7 @@ export const useText = createWideHook({
 		//  externalCall: true
 		// const [number, setNumber, inNumber] = fromHook(useNumber)
 		// setNumber('qqqq')
-		const [number, setNumber] = fromHook(useNumber)
+		const [number, setNumber] = useNumber()
 		if (text === 'Completely Different Text') {
 			setNumber('111')
 			// socket.emit('smth')

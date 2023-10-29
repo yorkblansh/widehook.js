@@ -1,35 +1,13 @@
 import _ from 'lodash'
 import { useState } from 'react'
 import { useToDo } from 'example/hooks/useTodo'
-import type { TodoItem } from 'example/hooks/useTodo'
-
-const lastItemOf = (t: TodoItem[]) => _.maxBy(t, (t) => t.id) as TodoItem
+import { toggleVisibility } from '../../helpers/toggleVisibility'
+import { removeItem } from 'example/helpers/removeItem'
+import { addItem } from 'example/helpers/addItem'
 
 export const ToDo = () => {
 	const [newItemName, setName] = useState('')
-	const [todo, setToDo] = useToDo()
-
-	const addItem = (name: string) =>
-		setToDo([
-			...todo,
-			{
-				id: lastItemOf(todo).id + 1,
-				isDone: false,
-				name,
-			},
-		])
-
-	const removeItem = (id: number) => setToDo(todo.filter((p) => p.id !== id))
-
-	const toggleVisibility = (id: number) => {
-		const item = todo.filter((p) => p.id === id)[0]
-		const updatedItem = _.update(item, 'isDone', (v) => !v) as TodoItem
-		setToDo(
-			[...todo.filter((p) => p.id !== id), updatedItem].sort(
-				(a, b) => a.id - b.id
-			)
-		)
-	}
+	const [todo] = useToDo()
 
 	return (
 		<div className="todo">
