@@ -1,20 +1,13 @@
-# docs are outdated and will be rewritten in few days
 
 ![demo](https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/logo.png)
 
-*Instead of million state managers...*
-
-- [docs are outdated and will be rewritten in few days](#docs-are-outdated-and-will-be-rewritten-in-few-days)
-  - [Usage](#usage)
-    - [Create hook](#create-hook)
-    - [Use in each component](#use-in-each-component)
-  - [More](#more)
-    - [Action callback](#action-callback)
-      - [Callback context](#callback-context)
-    - [Take another state](#take-another-state)
-    - [Previous state](#previous-state)
-      - [Previous state from another state](#previous-state-from-another-state)
-  - [TypeScript](#typescript)
+- [Usage](#usage)
+  - [Create hook](#create-hook)
+  - [Use in each component](#use-in-each-component)
+  - [Use outside of component](#use-outside-of-component)
+- [`on(state, setState) { }`](#onstate-setstate--)
+  - [Access another state](#access-another-state)
+- [TypeScript](#typescript)
 
 ## Usage
 
@@ -48,117 +41,51 @@ export const AnotherComponent = () => {
 
 ![demo](https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/demo.gif)
 
-## More
-
-### Action callback
-
-On each `"setState"` call inside the component you can define an action,
-so in the component:
+### Use outside of component
 
 ```ts
-export const Component = () => {
- const [message, setMessage] = useMessage()
+function setSpecialMessage(text: string) {
+ const [message, setMessage] = useMessage() // widehook works everywhere
 
- return <button onClick={() => setMessage('One Value')}>{message}</button>
+ setMessage('some text')
 }
-
 ```
 
-In the widehook:
+## `on(state, setState) { }`
+
+On each `"setState"` you can define the action:
 
 ```ts
 export const useMessage = createWideHook({
   init: 'text',
-  on: (message, setMessage) => {
-    console.log({ message })
-
-    if (message === 'specific message') {
-      setMessage('another message')
-    }
+  on(message, setMessage) {
+    if (message === 'specific message') console.log(message)
   },
 })
 ```
 
-#### Callback context
+### Access another state
+
+Take another widehook to read and update:
 
 ```ts
 export const useText = createWideHook({
   init: 'text',
-  on: (message, setMessage, here) => {
-  //                          ^? const here: Context<Text>
-  here.prevState() // access previous state
-  here.takeOtherStateByHook(useNumber) // allows to use another widehook inside current action callback
-...
-```
-
-### Take another state
-
-Access another state for read and update:
-
-```ts
-export const useText = createWideHook({
-  init: 'text',
-  on: (message, setMessage, here) => {
-    const [number, setNumber] = here.takeOtherStateByHook(useNumber)
-
-    if (message === 'specific message') {
-      setNumber(7)
-    }
-  },
-})
-
-```
-
-> `here` is callback context that contains stuff for accessing previous state and util for using another widehook
-
-### Previous state
-
-Call `prevState()` from callback context:
-
-```ts
-export const useText = createWideHook({
-  init: 'text',
-  on: (message, setMessage, here) => { 
-      console.log({ prevMessage: here.prevState() })
-  },
-})
-```
-
-#### Previous state from another state
-
-```ts
-export const useText = createWideHook({
-  init: 'text',
-  on: (message, setMessage, here) => {
-    const [number, setNumber, inNumber] = here.takeOtherStateByHook(useNumber)
-
-    console.log({ prevMessage: inNumber.prevState() })
+  on(message, setMessage) {
+    const [number, setNumber] = useNumber()
+    if (message === 'specific message') setNumber(7)
   },
 })
 ```
 
 ## TypeScript
 
-Declare a type for init value:
+Type declaration for init value:
 
 ```ts
 type Text = 'One Text' | 'Another Text' | 'Completely Different Text'
 
-export const useNumber = createWideHook({
-  init: 7,
-})
-
 export const useText = createWideHook({
   init: 'text' as Text,
-  on: (message, setMessage, here) => {
-    //    ^? const message: Text
-
-    const [number, setNumber, inNumber] = here.takeOtherStateByHook(useNumber)
-    //        ^? const number: number
-...
-
-export const Component = () => {
-  const [text, setText] = useText()
-  //       ^? const text: Text
-...
+})
 ```
