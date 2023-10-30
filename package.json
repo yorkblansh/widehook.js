@@ -1,7 +1,7 @@
 {
   "name": "widehook",
   "version": "1.0.6",
-  "description": "Global state for react hooks",
+  "description": "One state use wide",
   "license": "MIT",
   "main": "./lib/widehook.js",
   "module": "./lib/widehook.js",
