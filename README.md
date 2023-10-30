@@ -1,17 +1,20 @@
+# docs are outdated and will be rewritten in few days
+
 ![demo](https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/logo.png)
 
 *Instead of million state managers...*
 
-- [Usage](#usage)
-  - [Create hook](#create-hook)
-  - [Use in each component](#use-in-each-component)
-- [More](#more)
-  - [Action callback](#action-callback)
-    - [Callback context](#callback-context)
-  - [Take another state](#take-another-state)
-  - [Previous state](#previous-state)
-    - [Previous state from another state](#previous-state-from-another-state)
-- [TypeScript](#typescript)
+- [docs are outdated and will be rewritten in few days](#docs-are-outdated-and-will-be-rewritten-in-few-days)
+  - [Usage](#usage)
+    - [Create hook](#create-hook)
+    - [Use in each component](#use-in-each-component)
+  - [More](#more)
+    - [Action callback](#action-callback)
+      - [Callback context](#callback-context)
+    - [Take another state](#take-another-state)
+    - [Previous state](#previous-state)
+      - [Previous state from another state](#previous-state-from-another-state)
+  - [TypeScript](#typescript)
 
 ## Usage
 
