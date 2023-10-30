@@ -39,7 +39,7 @@ export const AnotherComponent = () => {
 }
 ```
 
-![demo](https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/demo.gif)
+![demo](https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/11.gif)
 
 ### Use outside of component
 
