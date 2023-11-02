@@ -48,8 +48,6 @@ const setSpecialMessage = (text: string) => {
 }
 ```
 
-> access widehook in common function like in react component
-
 ## Options
 
 ### `on(state, setState) { }`
