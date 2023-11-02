@@ -3,10 +3,11 @@
 
 - [Usage](#usage)
   - [Create hook](#create-hook)
-  - [Use in each component](#use-in-each-component)
-  - [Use outside of component](#use-outside-of-component)
-- [`on(state, setState) { }`](#onstate-setstate--)
-  - [Access another state](#access-another-state)
+  - [Use in component](#use-in-component)
+  - [Or even outside](#or-even-outside)
+- [Options](#options)
+  - [`on(state, setState) { }`](#onstate-setstate--)
+    - [Access another state](#access-another-state)
 - [TypeScript](#typescript)
 
 ## Usage
@@ -23,57 +24,57 @@ export const useMessage = createWideHook({
 })
 ```
 
-### Use in each component
+### Use in component
 
 ```ts
-export const MainComponent = () => {
- const [message, setMessage] = useMessage()
+const Button = () => {
+  const [message, setMessage] = useMessage()
 
- return <button onClick={() => setMessage('One Value')}>{message}</button>
-}
-
-export const AnotherComponent = () => {
- const [message, setMessage] = useMessage()
-
- return <button onClick={() => setMessage('Another')}>{message}</button>
+  return <button onClick={() => setMessage('One Value')}>
+      {message}
+  </button>
 }
 ```
 
 ![demo](https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/11.gif)
 
-### Use outside of component
+### Or even outside
 
 ```ts
-function setSpecialMessage(text: string) {
- const [message, setMessage] = useMessage() // widehook works everywhere
+const setSpecialMessage = (text: string) => {
+  const [message, setMessage] = useMessage() // yes, it works here
 
- setMessage('some text')
+  setMessage(text)
 }
 ```
 
-## `on(state, setState) { }`
+> access widehook in common function like in react component
 
-On each `"setState"` you can define the action:
+## Options
+
+### `on(state, setState) { }`
+
+On each `"setState"` define action:
 
 ```ts
 export const useMessage = createWideHook({
   init: 'text',
-  on(message, setMessage) {
-    if (message === 'specific message') console.log(message)
+  on(text, setText) {
+    if (text === 'specific message') setText('another text')
   },
 })
 ```
 
-### Access another state
+#### Access another state
 
 Take another widehook to read and update:
 
 ```ts
 export const useText = createWideHook({
   init: 'text',
-  on(message, setMessage) {
+  on(text, setText) {
     const [number, setNumber] = useNumber()
-    if (message === 'specific message') setNumber(7)
+    if (text === 'specific text') setNumber(7)
   },
 })
 ```
