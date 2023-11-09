@@ -1,20 +1,27 @@
-import { useNumber, useText } from 'example/hooks/useText'
+import { useCounter, useText } from 'example/hooks/useText'
 
 export const MainComponent = () => {
 	const [text, setText] = useText()
 
-	const [number, setNumber] = useNumber()
+	const { counter, setCounter } = useCounter()
 
 	return (
 		<section>
 			Main Component
-			<button onClick={() => setNumber(55)}>{text}</button>
 			<button
 				onClick={() => {
-					// setNumber('klklk')
+					setText('One Text')
+					// setCounter(55)
 				}}
 			>
-				{number}
+				{text}
+			</button>
+			<button
+				onClick={() => {
+					setCounter(777)
+				}}
+			>
+				{counter}
 			</button>
 			<div>
 				{/* <div>prev number: {prevNumber}</div> */}

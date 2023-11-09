@@ -4,11 +4,40 @@ import { fromHook } from './utils/fromHook'
 import { initStore } from './utils/initStore'
 import type { ActionCallback, Scope } from './types/ActionCallback'
 
+const capitalize = <T extends string>(s: T) =>
+	(s[0].toUpperCase() + s.slice(1)) as Capitalize<typeof s>
+
+// type Required<T> = { [P in keyof T]-?: T[P] }
+
+// type r = Required<{ a?: string }>
+
+// type MutableRequired<T> = { -readonly [P in keyof T]-?: T[P] } // Remove readonly and ?
+
+// const mappedObject: Required<{a,b}> = {
+
+// 	// requiredParam: { type: 'number' },
+// 	// optionalParam: { type: 'string' },
+// }
+
+type WideStateNameSettings<WideState> = {
+	widestate?: WideState
+	name?: string
+}
+
+type WideStateSettings<WideState = 'object' | 'array'> =
+	WideState extends 'object'
+		? Required<WideStateNameSettings<WideState>>
+		: WideStateNameSettings<WideState>
+
+type ExtraSettings = WideStateSettings
+
 export function createWideHook<State>({
 	init,
 	on: ACTION_CALLBACK,
+	widestate,
+	name,
 }: {
-	/**
+	/*
 	 * initial value
 	 */
 	init: State
@@ -17,7 +46,7 @@ export function createWideHook<State>({
 	 * action callback reacts on every change of current state
 	 */
 	on?: ActionCallback<State>
-}): WideHook<State> {
+} & ExtraSettings): WideHook<State> {
 	let effected: boolean = false
 	let actionHappened: boolean = true
 	const STORE = initStore(init)
@@ -67,13 +96,26 @@ export function createWideHook<State>({
 			}
 		}, [])
 
-		return [
-			state,
-			(nextState: State) => {
-				STORE.set(nextState)
-				actionHappened = true
-			},
-		]
+		const setNextState = (nextState: State) => {
+			STORE.set(nextState)
+			actionHappened = true
+		}
+
+		const arrayWideState = [state, setNextState]
+
+		if (widestate !== undefined) {
+			if (widestate === 'array') {
+				return arrayWideState
+			}
+			if (widestate === 'object' && name != undefined) {
+				return {
+					[`${name}` as typeof name]: state,
+					[`set${capitalize(name)}`]: setNextState,
+				}
+			}
+		} else {
+			return arrayWideState as WideState<State>
+		}
 	}
 
 	/**
@@ -91,7 +133,7 @@ export function createWideHook<State>({
 
 	return () => {
 		try {
-			return widehook() as WideState<State>
+			return widehook() as unknown as WideStateSettings<State>
 		} catch (error) {
 			if (error) {
 				const targetError =
