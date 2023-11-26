@@ -1,5 +1,6 @@
-import type { OtherWideHook, WideHook, WideHookWithAux } from '../types'
+import type { WideHook, WideHookAux, WideObject, WideState } from '../types'
 import type { Scope } from '../types/ActionCallback'
+import { capitalize } from './capitalize'
 
 export interface AUX<State> {
 	state: () => State
@@ -7,16 +8,24 @@ export interface AUX<State> {
 	scope: Scope
 }
 
-export const fromHook = <State>(
-	widehook: WideHook<State>
-): ReturnType<OtherWideHook<State>> => {
-	const widehookWithAux = widehook as WideHookWithAux<State>
-	const { state, setState } = widehookWithAux.aux
+export const fromHook = <State, StateName extends string>(
+	widehook: WideHook<State>,
+	objectStateName?: StateName
+) => {
+	const widehookAux = widehook as WideHookAux<State>
+	const { state, setState } = widehookAux.aux
 
-	return [
-		state(),
-		(state) => {
-			setState(state)
-		},
-	]
+	const setNextState: WideState<State>['1'] = (state) => {
+		setState(state)
+	}
+
+	if (objectStateName) {
+		return {
+			[objectStateName as StateName]: state,
+			[`set${capitalize(objectStateName)}` as Capitalize<StateName>]:
+				setNextState,
+		} as WideObject<State, StateName>
+	} else {
+		return [state(), setNextState] as WideState<State>
+	}
 }

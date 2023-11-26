@@ -1,2 +1,2 @@
 export * from './createWideHook'
-export type { WideHook, WideState } from './types'
+export type { WideHook, WideState, WideObject } from './types'
