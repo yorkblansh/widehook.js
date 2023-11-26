@@ -1,14 +1,25 @@
-import type { WideHook, WideHookWithAux, WideState } from './types'
+import type { WideHook, WideObject, WideState } from './types'
 import { useEffect, useState } from 'react'
 import { fromHook } from './utils/fromHook'
 import { initStore } from './utils/initStore'
 import type { ActionCallback, Scope } from './types/ActionCallback'
+import { capitalize } from './utils/capitalize'
+import type { ExtraSettings } from './types/ExtraSettings'
 
-export function createWideHook<State>({
+export function createWideHook<
+	State,
+	WideStateType extends boolean | undefined = undefined,
+	StateName extends string = string,
+	_WideState = WideStateType extends undefined
+		? WideState<State>
+		: WideObject<State, StateName>
+>({
 	init,
 	on: ACTION_CALLBACK,
+	returnObject: object,
+	name,
 }: {
-	/**
+	/*
 	 * initial value
 	 */
 	init: State
@@ -17,7 +28,7 @@ export function createWideHook<State>({
 	 * action callback reacts on every change of current state
 	 */
 	on?: ActionCallback<State>
-}): WideHook<State> {
+} & ExtraSettings<WideStateType, StateName>) {
 	let effected: boolean = false
 	let actionHappened: boolean = true
 	const STORE = initStore(init)
@@ -37,7 +48,7 @@ export function createWideHook<State>({
 		},
 	}
 
-	function widehook() {
+	function widehook(): WideState<State> | WideObject<State, StateName> {
 		const [state, setState] = useState(STORE.value())
 
 		useEffect(() => {
@@ -67,18 +78,30 @@ export function createWideHook<State>({
 			}
 		}, [])
 
-		return [
-			state,
-			(nextState: State) => {
-				STORE.set(nextState)
-				actionHappened = true
-			},
-		]
+		const setNextState: WideState<State>['1'] = (nextState: State) => {
+			STORE.set(nextState)
+			actionHappened = true
+		}
+
+		const arrayWideState: WideState<State> = [state, setNextState]
+
+		if (object !== undefined) {
+			if (object === true && name !== undefined) {
+				return {
+					[name as StateName]: state,
+					[`set${capitalize(name)}` as Capitalize<StateName>]: setNextState,
+				} as WideObject<State, StateName>
+			} else {
+				return arrayWideState
+			}
+		} else {
+			return arrayWideState
+		}
 	}
 
 	/**
 	 * passing state functions into aux to use inside {@link fromHook}
-	 * for accessing within another widehook {@link ActionCallback}
+	 * for accessing inside another widehook {@link ActionCallback}
 	 */
 	widehook.aux = {
 		state: () => STORE.value(),
@@ -89,20 +112,31 @@ export function createWideHook<State>({
 		scope,
 	}
 
-	return () => {
+	return (() => {
 		try {
-			return widehook() as WideState<State>
+			return widehook()
 		} catch (error) {
 			if (error) {
-				const targetError =
-					'Invalid hook call. Hooks can only be called inside of the body of a function component'
-
-				if (error.toString().includes(targetError)) {
+				if (
+					error
+						.toString()
+						.includes(
+							'Invalid hook call. Hooks can only be called inside of the body of a function component'
+						)
+				) {
 					console.info('Hook was called outside react component')
 				}
 			}
 
-			return fromHook(widehook as WideHookWithAux<State>)
+			if (object !== undefined) {
+				if (object === true && name !== undefined) {
+					return fromHook(widehook, name)
+				} else {
+					return fromHook(widehook)
+				}
+			} else {
+				return fromHook(widehook)
+			}
 		}
-	}
+	}) as WideHook<_WideState>
 }

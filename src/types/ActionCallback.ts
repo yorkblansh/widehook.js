@@ -66,7 +66,7 @@ export const useNumber = createWideHook({
 })
 
  * ```
-  *
+  * //TODO must be completed
   * @param effect setup runs code only by `setState` inside component,
   * so code will be ignored by
   * @returns

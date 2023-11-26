@@ -1,13 +1,14 @@
-import { createWideHook, fromHook } from '@widehook'
+import { createWideHook } from '@widehook'
 
 type Text = 'One Text' | 'Another Text' | 'Completely Different Text'
 
-export const useNumber = createWideHook({
+export const useCounter = createWideHook({
 	init: 3,
-	on(state, setNumber) {
-		console.log(state)
-	},
+	returnObject: true,
+	name: 'counter',
 })
+
+const a = useCounter()
 
 export const useText = createWideHook({
 	init: 'text' as Text,
@@ -33,9 +34,9 @@ export const useText = createWideHook({
 		//  externalCall: true
 		// const [number, setNumber, inNumber] = fromHook(useNumber)
 		// setNumber('qqqq')
-		const [number, setNumber] = useNumber()
+		const { counter, setCounter } = useCounter()
 		if (text === 'Completely Different Text') {
-			setNumber('111')
+			setCounter(111)
 			// socket.emit('smth')
 			// socket.on('smth', (data: string) => {
 			// 	setNumber(data)
@@ -43,7 +44,7 @@ export const useText = createWideHook({
 			// })
 		}
 		if (text === 'One Text') {
-			setNumber('222')
+			setCounter(222)
 			// Socket.off('jjhjkhk')
 		}
 		// console.log(inNumber.prevStates())
