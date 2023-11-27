@@ -8,6 +8,7 @@
 - [Options](#options)
   - [`on(state, setState) { }`](#onstate-setstate--)
     - [Access another state](#access-another-state)
+  - [`returnObject: true`](#returnobject-true)
 - [TypeScript](#typescript)
 
 ## Usage
@@ -75,6 +76,20 @@ export const useText = createWideHook({
     if (text === 'specific text') setNumber(7)
   },
 })
+```
+
+### `returnObject: true`
+
+If true - hook returns an object with named props and methods:
+
+```ts
+const useCounter = createWideHook({
+  init: 3,
+  returnObject: true,
+  name: 'counter', // requires name
+})
+
+const { counter, setCounter } = useCounter()
 ```
 
 ## TypeScript
