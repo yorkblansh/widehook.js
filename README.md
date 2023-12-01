@@ -1,5 +1,5 @@
 
-![demo](https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/logo.png)
+![demo](https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/new_logo.png)
 
 - [Usage](#usage)
   - [Create hook](#create-hook)
