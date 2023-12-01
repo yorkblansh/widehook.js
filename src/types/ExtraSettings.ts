@@ -1,22 +1,22 @@
 type WideStateNameSettings<
 	WideStateType extends boolean | undefined,
-	Name extends string
+	StateName extends string
 > = {
 	/**
 	 * if true widehook function returns WideObject
 	 */
 	returnObject?: WideStateType
-	name?: Name
+	stateName?: StateName
 }
 
 type WideStateSettings<
 	WideStateType extends boolean | undefined,
-	Name extends string
+	StateName extends string
 > = WideStateType extends boolean
-	? Required<WideStateNameSettings<WideStateType, Name>>
-	: WideStateNameSettings<WideStateType, Name>
+	? Required<WideStateNameSettings<WideStateType, StateName>>
+	: WideStateNameSettings<WideStateType, StateName>
 
 export type ExtraSettings<
 	WideStateType extends boolean | undefined,
-	Name extends string
-> = WideStateSettings<WideStateType, Name>
+	StateName extends string
+> = WideStateSettings<WideStateType, StateName>

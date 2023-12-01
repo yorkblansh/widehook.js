@@ -16,8 +16,8 @@ export function createWideHook<
 >({
 	init,
 	on: ACTION_CALLBACK,
-	returnObject: object,
-	name,
+	returnObject,
+	stateName,
 }: {
 	/*
 	 * initial value
@@ -85,11 +85,12 @@ export function createWideHook<
 
 		const arrayWideState: WideState<State> = [state, setNextState]
 
-		if (object !== undefined) {
-			if (object === true && name !== undefined) {
+		if (returnObject !== undefined) {
+			if (returnObject === true && stateName !== undefined) {
 				return {
-					[name as StateName]: state,
-					[`set${capitalize(name)}` as Capitalize<StateName>]: setNextState,
+					[stateName as StateName]: state,
+					[`set${capitalize(stateName)}` as Capitalize<StateName>]:
+						setNextState,
 				} as WideObject<State, StateName>
 			} else {
 				return arrayWideState
@@ -128,9 +129,9 @@ export function createWideHook<
 				}
 			}
 
-			if (object !== undefined) {
-				if (object === true && name !== undefined) {
-					return fromHook(widehook, name)
+			if (returnObject !== undefined) {
+				if (returnObject === true && stateName !== undefined) {
+					return fromHook(widehook, stateName)
 				} else {
 					return fromHook(widehook)
 				}
