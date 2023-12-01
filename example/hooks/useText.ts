@@ -5,7 +5,7 @@ type Text = 'One Text' | 'Another Text' | 'Completely Different Text'
 export const useCounter = createWideHook({
 	init: 3,
 	returnObject: true,
-	name: 'counter',
+	stateName: 'counter',
 })
 
 const a = useCounter()
