@@ -1,6 +1,4 @@
 
-![demo](https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/new_logo.png)
-
 <p align="center">
   <img src="https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/new_logo.png" alt="Sublime's custom image"/>
 </p>
