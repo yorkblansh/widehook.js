@@ -3,6 +3,8 @@
   <img src="https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/new_logo.png" alt="Sublime's custom image"/>
 </p>
 
+*One state use wide*
+
 - [Usage](#usage)
   - [Create hook](#create-hook)
   - [Use in component](#use-in-component)
