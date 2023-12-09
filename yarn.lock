@@ -1298,6 +1298,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bun-types@npm:^1.0.15":
+  version: 1.0.15
+  resolution: "bun-types@npm:1.0.15"
+  checksum: 024ac58293c15d009fcd8fd3c1cb040a9afe404a533c922dbf5d5b47b1e3974cbb3e3192f17d584e1f957c62c442687a08d0fa7354b51f60c25ea2fe0867a839
+  languageName: node
+  linkType: hard
+
 "cacache@npm:^17.0.0":
   version: 17.1.4
   resolution: "cacache@npm:17.1.4"
@@ -3643,6 +3650,7 @@ __metadata:
     "@types/react": "npm:18.2.43"
     "@types/react-dom": "npm:18.2.17"
     "@vitejs/plugin-react": "npm:4.2.1"
+    bun-types: "npm:^1.0.15"
     lodash: "npm:^4.17.21"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
