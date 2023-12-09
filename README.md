@@ -1,9 +1,8 @@
+<h1>widehook.js</h1>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/new_logo.png" alt="Sublime's custom image"/>
 </p>
-
-*One state use wide*
 
 - [Usage](#usage)
   - [Create hook](#create-hook)
@@ -13,7 +12,7 @@
   - [`on(state, setState) { }`](#onstate-setstate--)
     - [Access another state](#access-another-state)
   - [`returnObject: true`](#returnobject-true)
-- [TypeScript](#typescript)
+- [Types](#types)
 
 ## Usage
 
@@ -96,7 +95,7 @@ const useCounter = createWideHook({
 const { counter, setCounter } = useCounter()
 ```
 
-## TypeScript
+## Types
 
 Type declaration for init value:
 
