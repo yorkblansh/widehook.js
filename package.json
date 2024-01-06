@@ -9,8 +9,8 @@
 		"dev": "vite --port 5172 --host",
 		"build": "vite build",
 		"preview": "vite preview",
-		"lint": "prettier src",
-		"lint:fix": "yarn lint --fix",
+		"lint": "prettier src -w",
+		"incorrect__lint:fix": "yarn lint --fix",
 		"type-check": "tsc --project tsconfig.json --pretty --noEmit",
 		"ci": "yarn lint && yarn type-check"
 	},
