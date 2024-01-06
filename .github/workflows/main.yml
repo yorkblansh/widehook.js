@@ -1,0 +1,30 @@
+name: CI
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js ⚙️
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'yarn'
+
+      - name: Install dependencies 📦
+        run: yarn install --frozen-lockfile
+      # - name: Yarn setup
+      #   uses: DerYeger/yarn-setup-action@master
+      #   with:
+      #     node-version: 16
+      # - uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 16.x
+      #     cache: 'yarn'
+
+      # - run: yarn install --frozen-lockfile
+      - run: yarn run lint && yarn run build
