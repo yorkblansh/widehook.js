@@ -1,5 +1,11 @@
 # widehook
 
+## 2.0.5
+
+### Patch Changes
+
+- upd test code
+
 ## 2.0.4
 
 ### Patch Changes
