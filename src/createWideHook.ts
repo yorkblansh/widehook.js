@@ -6,8 +6,6 @@ import type { ActionCallback, Scope } from './types/ActionCallback'
 import { capitalize } from './utils/capitalize'
 import type { ExtraSettings } from './types/ExtraSettings'
 
-const y = 2
-
 export function createWideHook<
 	State,
 	WideStateType extends boolean | undefined = undefined,

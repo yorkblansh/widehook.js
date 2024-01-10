@@ -1,5 +1,11 @@
 # widehook
 
+## 2.0.6
+
+### Patch Changes
+
+- remove test code
+
 ## 2.0.5
 
 ### Patch Changes
