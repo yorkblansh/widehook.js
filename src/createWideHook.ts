@@ -6,7 +6,7 @@ import type { ActionCallback, Scope } from './types/ActionCallback'
 import { capitalize } from './utils/capitalize'
 import type { ExtraSettings } from './types/ExtraSettings'
 
-const y = 6787687689
+const y = 6787687689879879879879
 
 export function createWideHook<
 	State,
