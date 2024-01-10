@@ -1,6 +1,9 @@
 version: '3.8'
 
 services:
+  node-20:
+    image: node:20
+
   api:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
