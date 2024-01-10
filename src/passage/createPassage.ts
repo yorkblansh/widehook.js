@@ -3,22 +3,22 @@ import { Scope, ActionCallback } from 'src/types'
 export type PassagePredicat<State> = (
 	state: State,
 	setState: (newState: State) => void,
-	here: Scope<State>
+	here: Scope<State>,
 ) => boolean
 
 export type WidehookPassage<_State> = <State extends string>(
-	passageCb: ActionCallback<State>
+	passageCb: ActionCallback<State>,
 ) => ActionCallback<State>
 
 export const createPassage = <GenericState>(
-	passagePredicat: PassagePredicat<GenericState>
+	passagePredicat: PassagePredicat<GenericState>,
 ) => {
 	const widehookPassage = <State extends GenericState>(
-		cb: ActionCallback<State>
+		cb: ActionCallback<State>,
 	) => {
 		const passageCb = (...args: Parameters<ActionCallback<State>>) => {
 			const isConditionTrue = passagePredicat(
-				...(args as unknown as Parameters<PassagePredicat<GenericState>>)
+				...(args as unknown as Parameters<PassagePredicat<GenericState>>),
 			)
 			if (isConditionTrue) cb(...args)
 		}

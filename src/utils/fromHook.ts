@@ -10,7 +10,7 @@ export interface AUX<State> {
 
 export const fromHook = <State, StateName extends string>(
 	widehook: WideHook<State>,
-	objectStateName?: StateName
+	objectStateName?: StateName,
 ) => {
 	const widehookAux = widehook as WideHookAux<State>
 	const { state, setState } = widehookAux.aux

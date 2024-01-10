@@ -12,7 +12,7 @@ export function createWideHook<
 	StateName extends string = string,
 	_WideState = WideStateType extends undefined
 		? WideState<State>
-		: WideObject<State, StateName>
+		: WideObject<State, StateName>,
 >({
 	init,
 	on: ACTION_CALLBACK,
@@ -67,7 +67,7 @@ export function createWideHook<
 								actionHappened = true
 								STORE.set(nextState)
 							},
-							scope
+							scope,
 						)
 					}
 				},
@@ -122,7 +122,7 @@ export function createWideHook<
 					error
 						.toString()
 						.includes(
-							'Invalid hook call. Hooks can only be called inside of the body of a function component'
+							'Invalid hook call. Hooks can only be called inside of the body of a function component',
 						)
 				) {
 					console.info('Hook was called outside react component')
