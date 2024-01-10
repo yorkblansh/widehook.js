@@ -25,5 +25,6 @@
 		"types": ["bun-types"]
 	},
 	"include": ["./example", "./src"],
+	"exclude": ["node_modules"],
 	"references": [{ "path": "./tsconfig.node.json" }]
 }
