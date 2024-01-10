@@ -25,15 +25,7 @@ jobs:
 
       - name: Install dependencies 📦
         run: yarn install --frozen-lockfile
-      # - uses: pnpm/action-setup@v2
-      #   with:
-      #     version: 7
-      # - uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 16.x
-      #     cache: 'pnpm'
 
-      # - run: pnpm install --frozen-lockfile
       - name: Create Release Pull Request or Publish
         id: changesets
         uses: changesets/action@v1
@@ -42,3 +34,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Bump version and push tag
+        uses: laputansoft/github-tag-action@v4.6
+        with:
+          github_token: ${{ env.github-token }}
+          tag: ${{ steps.package-version.outputs.version }}
