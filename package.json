@@ -7,7 +7,7 @@
 	"module": "./lib/widehook.js",
 	"scripts": {
 		"dev": "vite --port 5172 --host",
-		"release": "pnpm run build && changeset publish",
+		"release": "npm run build && changeset publish",
 		"build": "vite build",
 		"preview": "vite preview",
 		"lint": "prettier src -w",
