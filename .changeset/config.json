@@ -5,7 +5,7 @@
 	"fixed": [],
 	"linked": [],
 	"access": "restricted",
-	"baseBranch": "3-add-github-actions",
+	"baseBranch": "master",
 	"updateInternalDependencies": "patch",
 	"ignore": []
 }
