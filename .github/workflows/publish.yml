@@ -45,4 +45,4 @@ jobs:
         uses: laputansoft/github-tag-action@v4.6
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ steps.package-version.outputs.package-version }}
+          tag: ${{ steps.package-version.outcome.package-version }}
