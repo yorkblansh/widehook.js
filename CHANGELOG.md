@@ -1,5 +1,11 @@
 # widehook
 
+## 2.0.4
+
+### Patch Changes
+
+- add unused com1
+
 ## 2.0.6
 
 ### Patch Changes
