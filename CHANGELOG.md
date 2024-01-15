@@ -1,5 +1,11 @@
 # widehook
 
+## 2.0.17
+
+### Patch Changes
+
+- 1fffe8a: w
+
 ## 2.0.16
 
 ### Patch Changes
