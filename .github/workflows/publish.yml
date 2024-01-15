@@ -43,7 +43,7 @@ jobs:
         shell: bash
         run: |
           # define variables      
-          semver=${{ env.PACKAGE_VERSION }} | sed -E '^(\d+\.)?(\d+\.)?(\d+)$' 
+          semver=${{ env.PACKAGE_VERSION }} | sed -E /^(\d+\.)?(\d+\.)?(\d+)$/ 
 
           # # set them as GitHub ENV variables
           echo "Semver=$semver" >> $GITHUB_ENV
