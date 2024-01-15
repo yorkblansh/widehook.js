@@ -43,10 +43,10 @@ jobs:
         shell: bash
         run: |
           # define variables      
-          # semver=${{ env.PACKAGE_VERSION }} | sed -E '^(\d+\.)?(\d+\.)?(\d+)$' 
+          semver=${{ env.PACKAGE_VERSION }} | sed -E '^(\d+\.)?(\d+\.)?(\d+)$' 
 
           # # set them as GitHub ENV variables
-          # echo "Semver=$semver" >> $GITHUB_ENV
+          echo "Semver=$semver" >> $GITHUB_ENV
 
           # # retrieve these GitHub ENV variables
           echo "current version is ${{ env.PACKAGE_VERSION }}"
@@ -55,4 +55,4 @@ jobs:
         uses: laputansoft/github-tag-action@v4.6
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: echo ${{ env.PACKAGE_VERSION }}
+          tag: ${{ env.Semver }}
