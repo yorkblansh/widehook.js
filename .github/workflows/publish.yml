@@ -49,7 +49,7 @@ jobs:
           echo "Semver=$semver" >> $GITHUB_ENV
 
           # # retrieve these GitHub ENV variables
-          echo "current version is ${{ env.Semver }}"
+          echo "current version is $Semver"
 
       - name: Bump version and push tag
         uses: laputansoft/github-tag-action@v4.6
