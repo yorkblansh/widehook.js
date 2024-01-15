@@ -56,4 +56,4 @@ jobs:
         uses: laputansoft/github-tag-action@v4.6
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ env.Semver }}
+          tag: ${{ env.PACKAGE_VERSION }}
