@@ -1,5 +1,11 @@
 # widehook
 
+## 2.0.11
+
+### Patch Changes
+
+- qqqqqqqqqqqqqq
+
 ## 2.0.10
 
 ### Patch Changes
