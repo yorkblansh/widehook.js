@@ -1,5 +1,11 @@
 # widehook
 
+## 2.0.14
+
+### Patch Changes
+
+- yui
+
 ## 2.0.13
 
 ### Patch Changes
