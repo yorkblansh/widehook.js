@@ -39,6 +39,17 @@ jobs:
         # with:
         # path: '../../package.json' # Optional
         # follow-symlinks: 'false' # Optional
+      - name: Set and Retrieve Github ENV variables
+        shell: bash
+        run: |
+          # define variables      
+          semver=(${{ env.PACKAGE_VERSION }} | sed -E '^(\d+\.)?(\d+\.)?(\d+)$')
+
+          # set them as GitHub ENV variables
+          echo "Semver=$semver" >> $GITHUB_ENV
+
+          # retrieve these GitHub ENV variables
+          echo "current version is ${{ env.Semver }}"
 
       - name: Bump version and push tag
         uses: laputansoft/github-tag-action@v4.6
