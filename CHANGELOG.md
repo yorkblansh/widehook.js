@@ -1,5 +1,11 @@
 # widehook
 
+## 2.0.22
+
+### Patch Changes
+
+- qwerty
+
 ## 2.0.21
 
 ### Patch Changes
