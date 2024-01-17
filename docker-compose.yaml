@@ -1,23 +1,17 @@
-version: '3.8'
-
 services:
   node-20:
     image: node:20
 
-  api:
+  app:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
-    # network_mode: "host"
-    container_name: api-dev
+    container_name: app
     build:
       context: ./
       dockerfile: ./Dockerfile
     ports:
-      - 85:5055
-      - 86:5056
-      - 5172:5172
-      # - 1401:1401
-      - 1420:1420
+      - 90:5055
+      - 5174:5172
     volumes:
       - ./:/app
     tty: true
