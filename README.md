@@ -92,7 +92,7 @@ const useCounter = createWideHook({
   name: 'counter', // requires name
 })
 
-const { counter, setCounter } = useCounter()
+const { counter, setCounter } = useCounter() // in component
 ```
 
 ## Types
