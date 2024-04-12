@@ -1,5 +1,11 @@
 # widehook
 
+## 2.0.23
+
+### Patch Changes
+
+- upd readme
+
 ## 2.0.22
 
 ### Patch Changes
