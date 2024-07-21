@@ -1,22 +1,21 @@
 {
-	"docker.commands.attach": "${containerCommand} exec -it ${containerId} fish",
-	"github-actions.workflows.pinned.workflows": [],
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"editor.formatOnSave": true,
-	"[typescript]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
-	"[typescriptreact]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
-	"[ignore]": {
-		"editor.defaultFormatter": "foxundermoon.shell-format"
-	},
-	"[markdown]": {
-		"editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
-	},
-	"[json]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
-	"workbench.iconTheme": "vscode-icons"
+  "docker.commands.attach": "${containerCommand} exec -it ${containerId} fish",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[ignore]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.iconTheme": "vscode-icons"
 }
