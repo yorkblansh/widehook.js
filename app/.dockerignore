@@ -1,0 +1,13 @@
+/.vscode
+**/node_modules
+node_modules
+LICENSE
+# docker
+# .yarn
+# package.json
+# **/package.json
+**/*lock.json
+*lock.json
+**/*.lock
+*.lock
+*.txt
