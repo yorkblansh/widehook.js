@@ -1,0 +1,34 @@
+{
+	"name": "root",
+	"version": "0.0.1",
+	"author": "Oleg Chepelev <yorkblansh@gmail.com>",
+	"private": true,
+	"scripts": {
+		"api:build:events": "yarn workspace events run build",
+		"react:build:barcode-app": "yarn workspace react run build:barcode-app",
+		"api:build": "yarn workspace api run build",
+		"api:start:prod": "yarn workspace api run start:prod",
+		"prettier": "prettier --write ."
+	},
+	"workspaces": {
+		"packages": [
+			"workspaces/*"
+		]
+	},
+	"packageManager": "yarn@4.3.1",
+	"devDependencies": {
+		"@types/lodash": "^4.14.202",
+		"@types/node": "^20.8.4",
+		"@yarnpkg/pnpify": "^4.0.0-rc.14",
+		"prettier": "^2.8.1",
+		"typescript": "^4.7.4"
+	},
+	"dependencies": {
+		"@nestjs/mapped-types": "*",
+		"axios": "^1.3.6",
+		"bwip-js": "^3.4.0",
+		"fp-ts": "^2.16.1",
+		"fp-ts-std": "^0.17.1",
+		"to-words": "^3.5.0"
+	}
+}

@@ -1,0 +1,34 @@
+.table {
+	z-index: 1;
+	// box-shadow: 0 3px 6px #d7d7d7;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #e9e9e9;
+	border-radius: 8px;
+	background-color: #fff;
+	margin: 0px 50px;
+	/* width: 300px!important; */
+
+	& > .ant-spin-nested-loading {
+		& > .ant-spin-container {
+			& > .ant-table {
+				& > .ant-table-container {
+					& > .ant-table-tbody {
+						& > .rc-virtual-list-holder {
+							& > div {
+								& > .rc-virtual-list-holder-inner {
+									& > .checked-item {
+										& > .ant-table-cell-row-hover {
+											background-color: rgb(41, 201, 19);
+											// color: rgb(243, 243, 243);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

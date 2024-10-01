@@ -1,0 +1,8 @@
+*.lock
+*.gitignore
+*.cjs
+*.db
+
+**/.yarn
+**/dist
+**/public
