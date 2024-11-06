@@ -1,5 +1,15 @@
 # widehook
 
+## 2.0.24
+
+### Patch Changes
+
+- c74d80c: updates
+
+  - chore stuff
+  - deps updates
+  - event listener prop for hook
+
 ## 2.0.23
 
 ### Patch Changes
