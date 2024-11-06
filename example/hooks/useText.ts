@@ -4,53 +4,56 @@ type Text = 'One Text' | 'Another Text' | 'Completely Different Text'
 
 export const useCounter = createWideHook({
 	init: 3,
-	returnObject: true,
-	stateName: 'counter',
+	objectifyWithName: 'counter',
+
+	// returnObject: true,
+	// stateName: 'counter',
 })
 
 const a = useCounter()
 
 export const useText = createWideHook({
 	init: 'text' as Text,
-	on(text, setText, { effect }) {
-		console.log(text)
+	// on(text, setText, { effect }) {
+	// 	console.log(text)
 
-		// effect(() => {
-		// 	// console.log('start')
+	// 	// effect(() => {
+	// 	// 	// console.log('start')
 
-		// 	setTimeout(() => {
-		// 		setText('kkkkkkk')
-		// 		setTimeout(() => {
-		// 			setText('Completely Different Text')
-		// 		}, 2000)
-		// 	}, 2000)
+	// 	// 	setTimeout(() => {
+	// 	// 		setText('kkkkkkk')
+	// 	// 		setTimeout(() => {
+	// 	// 			setText('Completely Different Text')
+	// 	// 		}, 2000)
+	// 	// 	}, 2000)
 
-		// 	return () => {
-		// 		// console.log('finish')
-		// 	}
-		// })
+	// 	// 	return () => {
+	// 	// 		// console.log('finish')
+	// 	// 	}
+	// 	// })
 
-		// console.log('middle')
-		//  externalCall: true
-		// const [number, setNumber, inNumber] = fromHook(useNumber)
-		// setNumber('qqqq')
-		const { counter, setCounter } = useCounter()
-		if (text === 'Completely Different Text') {
-			setCounter(111)
-			// socket.emit('smth')
-			// socket.on('smth', (data: string) => {
-			// 	setNumber(data)
-			// 	setText('One Text')
-			// })
-		}
-		if (text === 'One Text') {
-			setCounter(222)
-			// Socket.off('jjhjkhk')
-		}
-		// console.log(inNumber.prevStates())
-	},
+	// 	// console.log('middle')
+	// 	//  externalCall: true
+	// 	// const [number, setNumber, inNumber] = fromHook(useNumber)
+	// 	// setNumber('qqqq')
+	// 	const { counter, setCounter } = useCounter()
+	// 	if (text === 'Completely Different Text') {
+	// 		setCounter(111)
+	// 		// socket.emit('smth')
+	// 		// socket.on('smth', (data: string) => {
+	// 		// 	setNumber(data)
+	// 		// 	setText('One Text')
+	// 		// })
+	// 	}
+	// 	if (text === 'One Text') {
+	// 		setCounter(222)
+	// 		// Socket.off('jjhjkhk')
+	// 	}
+	// 	// console.log(inNumber.prevStates())
+	// },
 })
 
+const [k, b, i] = useText()
 // export const Component = () => {
 // 	const [text, setText] = useText()
 // 	//       ^?
