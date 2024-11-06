@@ -11,9 +11,9 @@ export const MainComponent = () => {
 			console.log({ a })
 		})
 
-		// onCounter((n) => {
-		// 	console.log({ n })
-		// })
+		onCounter((n) => {
+			console.log({ n })
+		})
 	}, [])
 
 	return (
