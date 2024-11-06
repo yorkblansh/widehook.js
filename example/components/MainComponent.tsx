@@ -1,9 +1,16 @@
 import { useCounter, useText } from 'example/hooks/useText'
+import { useEffect } from 'react'
 
 export const MainComponent = () => {
-	const [text, setText] = useText()
+	const [text, setText, kkk] = useText()
 
-	const { counter, setCounter } = useCounter()
+	useEffect(() => {
+		kkk((a) => {
+			console.log({ a })
+		})
+	}, [])
+
+	const { counter, setCounter, onCounter } = useCounter()
 
 	return (
 		<section>
