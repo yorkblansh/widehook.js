@@ -6,7 +6,7 @@
 	"main": "./lib/widehook.js",
 	"module": "./lib/widehook.js",
 	"scripts": {
-		"dev": "vite --port 5172 --host",
+		"dev": "vite --port 5174 --host",
 		"release": "yarn run build && npm publish",
 		"build": "vite build",
 		"preview": "vite preview",
@@ -60,7 +60,7 @@
 		"vite-plugin-linter": "2.0.7",
 		"vite-tsconfig-paths": "4.2.2"
 	},
-	"packageManager": "yarn@4.0.2",
+	"packageManager": "yarn@4.5.1",
 	"dependencies": {
 		"lodash.frompairs": "^4.0.1",
 		"rxjs": "^7.8.1"
