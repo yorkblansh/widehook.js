@@ -5,12 +5,18 @@ export type WideHookAux<WideState> = WideHook<WideState> & {
 }
 
 export type WideObject<State, StateName extends string> = {
-	[T in StateName]: State
+	[T in StateName]: WideState<State>[0]
 } & {
-	[T in `set${Capitalize<StateName>}`]: (nextState: State) => void
+	[T in `set${Capitalize<StateName>}`]: WideState<State>[1]
+} & {
+	[T in `on${Capitalize<StateName>}`]: WideState<State>[2]
 }
 
-export type WideState<State> = [State, (newState: State) => void]
+export type WideState<State> = [
+	State,
+	(newState: State) => void,
+	(cb: (props: State) => void) => void,
+]
 
 export type WideHook<WideState> = () => WideState
 
