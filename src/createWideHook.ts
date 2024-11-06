@@ -11,16 +11,19 @@ import { toWideObject } from './utils/toWideObject'
 
 export function createWideHook<
 	State,
-	WideStateType extends boolean | undefined = undefined,
-	StateName extends string = string,
-	_WideState = WideStateType extends undefined
+	StateName extends string | undefined = undefined,
+	// WideStateType extends boolean | undefined = StateName extends string
+	// 	? boolean
+	// 	: undefined,
+	_WideState = StateName extends undefined
 		? WideState<State>
-		: WideObject<State, StateName>,
+		: WideObject<State, NonNullable<StateName>>,
 >({
 	init,
 	on: ACTION_CALLBACK,
-	returnObject,
-	stateName,
+	objectifyWithName: stateName,
+	// stateName,
+	// stateName,
 }: {
 	/*
 	 * initial value
@@ -31,7 +34,7 @@ export function createWideHook<
 	 * action callback reacts on every change of current state
 	 */
 	on?: ActionCallback<State>
-} & ExtraSettings<WideStateType, StateName>) {
+} & ExtraSettings<StateName>) {
 	let effected: boolean = false
 	let actionHappened: boolean = true
 	const STORE = initStore(init)
@@ -60,7 +63,9 @@ export function createWideHook<
 			},
 		})
 
-	function widehook(): WideState<State> | WideObject<State, StateName> {
+	function widehook():
+		| WideState<State>
+		| WideObject<State, NonNullable<StateName>> {
 		const [state, setState] = useState(STORE.value())
 
 		useEffect(() => {
@@ -97,23 +102,23 @@ export function createWideHook<
 
 		const arrayWideState: WideState<State> = [state, setNextState, onNextState]
 
-		if (returnObject !== undefined) {
-			if (returnObject === true && stateName !== undefined) {
-				return toWideObject<State, StateName>(
-					[stateName, state],
-					[`set${capitalize(stateName)}`, setNextState],
-					[`on${capitalize(stateName)}`, onNextState],
-				)
-				// return {
-				// 	[stateName as StateName]: state,
-				// 	[`set${capitalize(stateName)}`]: setNextState,
-				// 	[`on${capitalize(stateName)}`]: onNextState,
-				// } satisfies WideObject<State, StateName>
-			} else {
-				return arrayWideState
-			}
+		if (stateName !== undefined) {
+			// if (stateName === true && stateName !== undefined) {
+			return toWideObject<State, NonNullable<StateName>>(
+				[stateName, state],
+				[`set${capitalize(stateName)}`, setNextState],
+				[`on${capitalize(stateName)}`, onNextState],
+			)
+			// return {
+			// 	[stateName as StateName]: state,
+			// 	[`set${capitalize(stateName)}`]: setNextState,
+			// 	[`on${capitalize(stateName)}`]: onNextState,
+			// } satisfies WideObject<State, StateName>
+			// } else {
+			// 	return arrayWideState
+			// }
 		} else {
-			return arrayWideState
+			return arrayWideState as WideState<State>
 		}
 	}
 
@@ -150,12 +155,12 @@ export function createWideHook<
 				}
 			}
 
-			if (returnObject !== undefined) {
-				if (returnObject === true && stateName !== undefined) {
-					return fromHook(widehook, stateName)
-				} else {
-					return fromHook(widehook)
-				}
+			if (stateName !== undefined) {
+				// if (stateName === true && stateName !== undefined) {
+				return fromHook(widehook, stateName)
+				// } else {
+				// 	return fromHook(widehook)
+				// }
 			} else {
 				return fromHook(widehook)
 			}
