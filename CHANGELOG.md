@@ -1,5 +1,11 @@
 # widehook
 
+## 2.0.26
+
+### Patch Changes
+
+- upd deps & example
+
 ## 2.0.25
 
 ### Patch Changes
