@@ -4,7 +4,7 @@
   <img src="https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/new_logo.png" alt="Sublime's custom image"/>
 </p>
 
-- [Create](#create)
+- [Create hook](#create-hook)
 - [Use inside component](#use-inside-component)
 - [Or even outside](#or-even-outside)
 - [Hook options](#hook-options)
@@ -12,7 +12,7 @@
   - [`on(state, setState) { }`](#onstate-setstate--)
     - [Access another state](#access-another-state)
 
-## Create
+## Create hook
 
 <!-- Create wide hook with initial value -->
 
