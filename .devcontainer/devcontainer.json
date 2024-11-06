@@ -27,7 +27,8 @@
 				"eamodio.gitlens",
 				"Gruntfuggly.todo-tree",
 				"redhat.vscode-yaml",
-				"github.vscode-github-actions"
+				"github.vscode-github-actions",
+				"yzhang.markdown-all-in-one"
 			]
 		}
 	}
