@@ -1,5 +1,14 @@
 # widehook
 
+## 2.0.27
+
+### Patch Changes
+
+- 12773cb: some fixes at examples, docs
+- bf7645b: upd docs
+- ecd8a79: upd readme
+- 8ab8528: add feature option objectifyWithName
+
 ## 2.0.26
 
 ### Patch Changes
