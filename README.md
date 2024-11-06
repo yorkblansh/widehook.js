@@ -4,19 +4,15 @@
   <img src="https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/new_logo.png" alt="Sublime's custom image"/>
 </p>
 
-- [Usage](#usage)
-  - [Create hook](#create-hook)
-  - [Use in component](#use-in-component)
-  - [Or even outside](#or-even-outside)
-- [Options](#options)
+- [Create hook](#create-hook)
+- [Use inside component](#use-inside-component)
+- [Or even outside](#or-even-outside)
+- [Hook options](#hook-options)
+  - [`returnObject: true`](#returnobject-true)
   - [`on(state, setState) { }`](#onstate-setstate--)
     - [Access another state](#access-another-state)
-  - [`returnObject: true`](#returnobject-true)
-- [Types](#types)
 
-## Usage
-
-### Create hook
+## Create hook
 
 <!-- Create wide hook with initial value -->
 
@@ -28,31 +24,50 @@ export const useMessage = createWideHook({
 })
 ```
 
-### Use in component
+## Use inside component
 
 ```ts
 const Button = () => {
   const [message, setMessage] = useMessage()
+  
+  const click = () => setMessage('One Value')
 
-  return <button onClick={() => setMessage('One Value')}>
+  return <button onClick={click}>
       {message}
   </button>
 }
 ```
 
-![demo](https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/11.gif)
-
-### Or even outside
+## Or even outside
 
 ```ts
 const setSpecialMessage = (text: string) => {
-  const [message, setMessage] = useMessage() // yes, it works here
+  const [message, setMessage] = useMessage() 
 
   setMessage(text)
 }
 ```
 
-## Options
+<!-- ![demo](https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/11.gif) -->
+
+## Hook options
+
+### `returnObject: true`
+
+If true - hook returns an object with named props and methods:
+
+```ts
+const useCounter = createWideHook({
+  init: 3,
+  returnObject: true,
+  name: 'counter', // required if returnObject is true 
+})
+
+...
+
+const { counter, setCounter } = useCounter()
+```
+---
 
 ### `on(state, setState) { }`
 
@@ -81,28 +96,5 @@ export const useText = createWideHook({
 })
 ```
 
-### `returnObject: true`
 
-If true - hook returns an object with named props and methods:
 
-```ts
-const useCounter = createWideHook({
-  init: 3,
-  returnObject: true,
-  name: 'counter', // requires name
-})
-
-const { counter, setCounter } = useCounter() // in component
-```
-
-## Types
-
-Type declaration for init value:
-
-```ts
-type Text = 'One Text' | 'Another Text' | 'Completely Different Text'
-
-export const useText = createWideHook({
-  init: 'text' as Text,
-})
-```
