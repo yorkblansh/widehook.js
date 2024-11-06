@@ -3,14 +3,17 @@ import { useEffect } from 'react'
 
 export const MainComponent = () => {
 	const [text, setText, kkk] = useText()
+	const { counter, setCounter, onCounter } = useCounter()
 
 	useEffect(() => {
 		kkk((a) => {
 			console.log({ a })
 		})
-	}, [])
 
-	const { counter, setCounter, onCounter } = useCounter()
+		onCounter((n) => {
+			console.log({ n })
+		})
+	}, [])
 
 	return (
 		<section>
