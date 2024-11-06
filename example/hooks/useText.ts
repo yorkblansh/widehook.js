@@ -5,9 +5,6 @@ type Text = 'One Text' | 'Another Text' | 'Completely Different Text'
 export const useCounter = createWideHook({
 	init: 3,
 	objectifyWithName: 'counter',
-
-	// returnObject: true,
-	// stateName: 'counter',
 })
 
 const a = useCounter()
@@ -53,7 +50,6 @@ export const useText = createWideHook({
 	// },
 })
 
-const [k, b, i] = useText()
 // export const Component = () => {
 // 	const [text, setText] = useText()
 // 	//       ^?
