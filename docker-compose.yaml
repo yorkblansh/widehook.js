@@ -2,10 +2,10 @@ services:
   node-20:
     image: node:20
 
-  app:
+  widehook:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
-    container_name: app
+    container_name: widehook
     build:
       context: ./
       dockerfile: ./Dockerfile
@@ -13,7 +13,7 @@ services:
       - 90:5055
       - 5174:5172
     volumes:
-      - ./:/app
+      - ../:/widehook
     tty: true
     stdin_open: true
     restart: on-failure
