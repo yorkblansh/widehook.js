@@ -11,7 +11,7 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 90:5055
-      - 5174:5172
+      - 5174:5174
     volumes:
       - ../:/widehook
     tty: true
