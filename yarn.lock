@@ -1210,6 +1210,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash.frompairs@npm:^4":
+  version: 4.0.9
+  resolution: "@types/lodash.frompairs@npm:4.0.9"
+  dependencies:
+    "@types/lodash": "npm:*"
+  checksum: d38a9c67982698cb8bb137c2f18562bb1b5c4b2c382e804904b2d86e01b95ea8b13e023c363cce01c39b7206c42b147db95c386215b1b92ebcd274bf032e6ce3
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:*":
+  version: 4.17.12
+  resolution: "@types/lodash@npm:4.17.12"
+  checksum: 3d829f97c0ea713135e6eb48e983feffb315f4cf228d03654ca8a328e3fecd03005bf7dd30bf411f4306967c610d96738d441588283a41456815f2ce1fd7044c
+  languageName: node
+  linkType: hard
+
 "@types/lodash@npm:^4.14.202":
   version: 4.14.202
   resolution: "@types/lodash@npm:4.14.202"
@@ -3536,6 +3552,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.frompairs@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "lodash.frompairs@npm:4.0.1"
+  checksum: 8ff2d857f0764325dba5825ef8776cfc6992a504d75d668889bdd617c62fc3f179f1590042e127c98ed14d3fb14b71e66697b0fe8b10f73879c3a46e2d1c23d3
+  languageName: node
+  linkType: hard
+
 "lodash.get@npm:^4.4.2":
   version: 4.4.2
   resolution: "lodash.get@npm:4.4.2"
@@ -5532,12 +5555,14 @@ __metadata:
   dependencies:
     "@changesets/cli": "npm:^2.27.1"
     "@types/lodash": "npm:^4.14.202"
+    "@types/lodash.frompairs": "npm:^4"
     "@types/node": "npm:20.10.4"
     "@types/react": "npm:18.2.43"
     "@types/react-dom": "npm:18.2.17"
     "@vitejs/plugin-react": "npm:4.2.1"
     bun-types: "npm:^1.0.15"
     lodash: "npm:^4.17.21"
+    lodash.frompairs: "npm:^4.0.1"
     prettier: "npm:^3.1.1"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
