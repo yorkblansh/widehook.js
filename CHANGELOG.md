@@ -1,5 +1,11 @@
 # widehook
 
+## 2.0.25
+
+### Patch Changes
+
+- 4d1408a: update docs
+
 ## 2.0.24
 
 ### Patch Changes
