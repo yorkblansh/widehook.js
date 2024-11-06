@@ -1,0 +1,5 @@
+---
+'widehook': patch
+---
+
+upd docs
