@@ -8,7 +8,7 @@
 - [Use inside component](#use-inside-component)
 - [Or even outside](#or-even-outside)
 - [Hook options](#hook-options)
-  - [`returnObject: true`](#returnobject-true)
+  - [`objectifyWithName: "stateName"`](#objectifywithname-statename)
   - [`on(state, setState) { }`](#onstate-setstate--)
     - [Access another state](#access-another-state)
 
@@ -52,15 +52,14 @@ const setSpecialMessage = (text: string) => {
 
 ## Hook options
 
-### `returnObject: true`
+### `objectifyWithName: "stateName"`
 
-If true - hook returns an object with named props and methods:
+If set - hook returns an object with named props and methods:
 
 ```ts
 const useCounter = createWideHook({
   init: 3,
-  returnObject: true,
-  name: 'counter', // required if returnObject is true 
+  objectifyWithName: 'counter', 
 })
 
 ...
