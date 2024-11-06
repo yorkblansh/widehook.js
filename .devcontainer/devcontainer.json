@@ -5,10 +5,14 @@
 
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	// "image": "mcr.microsoft.com/devcontainers/base:jammy"
-	"build": {
-		// Path is relative to the devcontainer.json file.
-		"dockerfile": "../Dockerfile"
-	},
+	// "build": {
+	// 	// Path is relative to the devcontainer.json file.
+	// 	"dockerfile": "../Dockerfile"
+	// },
+	"dockerComposeFile": "../docker-compose.yaml",
+	"service": "widehook",
+	"workspaceFolder": "/widehook/${localWorkspaceFolderBasename}",
+	"remoteUser": "node",
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -26,7 +30,7 @@
 				"github.vscode-github-actions"
 			]
 		}
-	},
+	}
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 
