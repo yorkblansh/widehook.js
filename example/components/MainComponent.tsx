@@ -4,7 +4,6 @@ import { useEffect } from 'react'
 export const MainComponent = () => {
 	const [text, setText, kkk] = useText()
 	const { counter, setCounter, onCounter } = useCounter()
-	//comment
 
 	useEffect(() => {
 		kkk((a) => {

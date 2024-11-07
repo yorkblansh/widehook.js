@@ -11,7 +11,7 @@
 		"release": "yarn run build && npm publish",
 		"build": "vite build",
 		"preview": "vite preview",
-		"lint": "prettier src -w",
+		"lint": "prettier src -w --end-of-line lf",
 		"incorrect__lint:fix": "yarn lint --fix",
 		"type-check": "tsc --project tsconfig.json --pretty --noEmit",
 		"ci": "yarn lint && yarn type-check"
