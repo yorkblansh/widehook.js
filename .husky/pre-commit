@@ -1,4 +1,3 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-yarn lint:fix && yarn type-check
+# npm run pretty-quick
+# npx pretty-quick --pattern "./example/**" --staged --no-restage 
+npx pretty-quick --pattern "./(src|example)/**" --staged --no-restage

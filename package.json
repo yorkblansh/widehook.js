@@ -9,12 +9,14 @@
 	"scripts": {
 		"dev": "vite --port 5174 --host",
 		"release": "yarn run build && npm publish",
-		"build": "vite build",
+		"build": "vite build && prettier lib -w --end-of-line crlf",
 		"preview": "vite preview",
-		"lint": "prettier src -w --end-of-line lf",
+		"lint": "prettier src -w --end-of-line crlf",
 		"incorrect__lint:fix": "yarn lint --fix",
 		"type-check": "tsc --project tsconfig.json --pretty --noEmit",
-		"ci": "yarn lint && yarn type-check"
+		"ci": "yarn lint && yarn type-check",
+		"prepare": "husky",
+		"pretty-quick": "pretty-quick"
 	},
 	"files": [
 		"lib"
@@ -50,8 +52,11 @@
 		"@types/react-dom": "18.3.1",
 		"@vitejs/plugin-react": "4.3.3",
 		"bun-types": "^1.1.34",
+		"husky": "^9.1.6",
 		"lodash": "^4.17.21",
+		"pinst": "^3.0.0",
 		"prettier": "^3.3.3",
+		"pretty-quick": "^4.0.0",
 		"react": "18.3.1",
 		"react-dom": "18.3.1",
 		"sass": "^1.80.6",

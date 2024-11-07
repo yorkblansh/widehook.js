@@ -126,7 +126,6 @@ export function createWideHook<
 	 * passing state functions into aux to use inside {@link fromHook}
 	 * for accessing inside another widehook's {@link ActionCallback}
 	 */
-
 	const aux: AUX<State> = {
 		state: () => STORE.value(),
 		setState: (nextState: State) => {
