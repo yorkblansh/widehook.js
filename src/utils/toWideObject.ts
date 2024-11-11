@@ -7,6 +7,7 @@ type Props<State extends any, StateName extends string> = [
 	[x: `on${Capitalize<StateName>}`, WideState<State>[2]],
 ]
 
+//TODO remove fromPairs
 export const toWideObject = <State, StateName extends string>(
 	...props: Props<State, StateName>
 ) => fromPairs(props) as WideObject<State, StateName>
