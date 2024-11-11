@@ -1,7 +1,7 @@
 <h1>widehook.js</h1>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/new_logo.png" alt="Sublime's custom image"/>
+  <img src="https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/new_logo.png" alt="widehook logo"/>
 </p>
 
 - [Create hook](#create-hook)
