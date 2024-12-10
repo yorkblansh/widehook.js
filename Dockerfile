@@ -1,4 +1,4 @@
-FROM node:20
+FROM node:18
 
 RUN apt-get update && apt-get install fish vim curl sudo tmux -y && \
     echo "fish" >>~/.bashrc
