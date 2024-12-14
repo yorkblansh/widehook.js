@@ -1,82 +1,24 @@
 {
-	"name": "widehook",
-	"version": "3.0.0",
-	"description": "One state use wide",
-	"license": "MIT",
-	"main": "./lib/widehook.js",
-	"module": "./lib/widehook.js",
-	"type": "module",
+	"name": "widehook-monorepo",
+	"private": true,
+	"workspaces": [
+		"packages/*",
+		"examples/*"
+	],
 	"scripts": {
-		"dev": "vite --port 5174 --host",
-		"dev:example": "vite --mode example --port 5174 --host",
-		"dev:example1": "vite --mode example1 --port 5175 --host",
-		"release": "yarn run build && npm publish",
-		"build": "vite build && prettier lib -w --end-of-line crlf",
-		"build:example": "vite build --mode example",
-		"build:example1": "vite build --mode example1",
-		"build:lib": "vite build && prettier lib -w --end-of-line crlf",
-		"preview": "vite preview",
-		"preview:example": "vite preview --mode example",
-		"preview:example1": "vite preview --mode example1",
-		"lint": "prettier src -w --end-of-line crlf",
-		"incorrect__lint:fix": "yarn lint --fix",
-		"type-check": "tsc --project tsconfig.json --pretty --noEmit",
-		"ci": "yarn lint && yarn type-check",
-		"prepare": "husky",
-		"pretty-quick": "pretty-quick"
-	},
-	"files": [
-		"lib"
-	],
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/yorkblansh/widehook.js.git"
-	},
-	"keywords": [
-		"hook",
-		"state",
-		"global state",
-		"react",
-		"state manager",
-		"global hooks",
-		"react hooks",
-		"react global state"
-	],
-	"author": "Oleg Chepelev - yorkblansh@yandex.com",
-	"bugs": {
-		"url": "https://github.com/yorkblansh/widehook.js/issues"
-	},
-	"homepage": "https://github.com/yorkblansh/widehook.js#readme",
-	"peerDependencies": {
-		"react": ">=17.x"
+		"dev:example": "yarn workspace example dev",
+		"dev:example1": "yarn workspace example1 dev",
+		"build": "yarn workspace widehook build",
+		"build:example": "yarn workspace example build",
+		"build:example1": "yarn workspace example1 build",
+		"lint": "yarn workspaces foreach run lint",
+		"type-check": "yarn workspaces foreach run type-check"
 	},
 	"devDependencies": {
 		"@changesets/cli": "^2.27.9",
-		"@types/lodash": "^4.17.13",
-		"@types/lodash.frompairs": "^4",
-		"@types/node": "22.9.0",
-		"@types/react": "18.3.12",
-		"@types/react-dom": "18.3.1",
-		"@vitejs/plugin-react": "4.3.3",
-		"bun-types": "^1.1.34",
 		"husky": "^9.1.6",
-		"lodash": "^4.17.21",
-		"pinst": "^3.0.0",
 		"prettier": "^3.3.3",
-		"pretty-quick": "^4.0.0",
-		"react": "18.3.1",
-		"react-dom": "18.3.1",
-		"sass": "^1.80.6",
-		"typescript": "5.6.3",
-		"vite": "5.4.10",
-		"vite-plugin-dts": "4.3.0",
-		"vite-plugin-linter": "3.0.0",
-		"vite-tsconfig-paths": "5.1.0"
+		"pretty-quick": "^4.0.0"
 	},
-	"packageManager": "yarn@4.5.1",
-	"dependencies": {
-		"lodash.frompairs": "^4.0.1",
-		"rxjs": "^7.8.1"
-	}
+	"packageManager": "yarn@4.5.1"
 }
-
