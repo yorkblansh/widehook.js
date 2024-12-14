@@ -2,23 +2,28 @@
 	"name": "widehook-monorepo",
 	"private": true,
 	"workspaces": [
-		"packages/*",
-		"examples/*"
+		"packages/*"
 	],
 	"scripts": {
-		"dev:example": "yarn workspace example dev",
-		"dev:example1": "yarn workspace example1 dev",
-		"build": "yarn workspace widehook build",
-		"build:example": "yarn workspace example build",
-		"build:example1": "yarn workspace example1 build",
+		"dev:example": "vite --mode example --port 5174 --host",
+		"dev:example1": "vite --mode example1 --port 5175 --host",
+		"build": "vite build",
+		"build:example": "vite build --mode example",
+		"build:example1": "vite build --mode example1",
 		"lint": "yarn workspaces foreach run lint",
 		"type-check": "yarn workspaces foreach run type-check"
 	},
 	"devDependencies": {
 		"@changesets/cli": "^2.27.9",
+		"@types/react": "18.3.12",
+		"@types/react-dom": "18.3.1",
+		"@vitejs/plugin-react": "4.3.3",
 		"husky": "^9.1.6",
 		"prettier": "^3.3.3",
-		"pretty-quick": "^4.0.0"
+		"pretty-quick": "^4.0.0",
+		"typescript": "5.6.3",
+		"vite": "5.4.10",
+		"vite-plugin-dts": "4.3.0"
 	},
 	"packageManager": "yarn@4.5.1"
 }

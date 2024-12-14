@@ -1,44 +1,29 @@
-import { resolve } from 'node:path'
+import { resolve } from 'path'
 import { defineConfig, UserConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import tsConfigPaths from 'vite-tsconfig-paths'
 import dts from 'vite-plugin-dts'
 
 // Функция для создания конфигурации для примера
 const setupExampleConfig = (examplePath: string): UserConfig => ({
-	define: {
-		'process.env': { ...process.env },
+	plugins: [react()],
+	resolve: {
+		alias: {
+			'@widehook': resolve(__dirname, 'packages/widehook/src/widehook.ts'),
+		},
 	},
-	plugins: [react(), tsConfigPaths()],
-	base: `/${examplePath}`,
 	build: {
 		outDir: `dist/${examplePath}`,
 		sourcemap: true,
-	},
-	resolve: {
-		alias: {
-			'@widehook': resolve(__dirname, 'src/widehook.ts'),
-		},
 	},
 })
 
 // Конфигурация для библиотеки
 const setupLibConfig = (): UserConfig => ({
-	define: {
-		'process.env': { ...process.env },
-	},
 	plugins: [
 		react(),
-		tsConfigPaths(),
 		dts({
 			insertTypesEntry: false,
-			exclude: [
-				resolve('src', 'RxService.ts'),
-				resolve('example'),
-				resolve('example1'),
-				resolve('src', 'passage'),
-				resolve('src', 'internal-types.ts'),
-			],
+			exclude: ['**/node_modules/**'],
 			beforeWriteFile: (filePath, content) => ({
 				filePath: filePath.replace('/src', ''),
 				content,
@@ -46,14 +31,12 @@ const setupLibConfig = (): UserConfig => ({
 		}),
 	],
 	build: {
-		outDir: 'lib',
-		sourcemap: false,
-		minify: false,
+		outDir: 'packages/widehook/lib',
 		lib: {
-			formats: ['es'],
-			entry: [resolve('src', 'widehook.ts')],
-			name: 'ReactFeatureFlag',
-			fileName: () => 'widehook.js',
+			entry: resolve(__dirname, 'packages/widehook/src/widehook.ts'),
+			name: 'widehook',
+			fileName: 'widehook',
+			formats: ['es'] as ['es'],
 		},
 		rollupOptions: {
 			external: ['react'],
@@ -61,7 +44,7 @@ const setupLibConfig = (): UserConfig => ({
 	},
 })
 
-// Экспортируем конфигурацию в зависимости от переменной окружения EXAMPLE
+// Экспортируем конфигурацию в зависимости от переменной окружения MODE
 export default defineConfig(({ mode }) => {
 	switch (mode) {
 		case 'example':
