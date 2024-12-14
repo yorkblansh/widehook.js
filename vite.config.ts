@@ -25,7 +25,7 @@ const setupLibConfig = (): UserConfig => ({
 			insertTypesEntry: false,
 			exclude: ['**/node_modules/**'],
 			beforeWriteFile: (filePath, content) => ({
-				filePath: filePath.replace('/src', ''),
+				filePath: filePath.replace('/packages/widehook/src', ''),
 				content,
 			}),
 		}),
@@ -36,7 +36,7 @@ const setupLibConfig = (): UserConfig => ({
 			entry: resolve(__dirname, 'packages/widehook/src/widehook.ts'),
 			name: 'widehook',
 			fileName: 'widehook',
-			formats: ['es'] as ['es'],
+			formats: ['es'],
 		},
 		rollupOptions: {
 			external: ['react'],
