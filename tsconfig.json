@@ -22,7 +22,7 @@
 		},
 		"declaration": true,
 		"pretty": true,
-		"types": ["bun-types"]
+		"types": []
 	},
 	"include": ["./examples", "./packages"],
 	"exclude": ["node_modules"],
