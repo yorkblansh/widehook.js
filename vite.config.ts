@@ -23,10 +23,10 @@ const setupLibConfig = (): UserConfig => ({
 		react(),
 		dts({
 			insertTypesEntry: false,
+			include: [resolve('packages/widehook')],
 			exclude: [
 				resolve('packages/widehook/src/RxService.ts'),
-				resolve('packages/example'),
-				resolve('packages/example1'),
+				resolve('packages/widehook/src/utils'),
 				resolve('packages/widehook/src/passage'),
 				resolve('packages/widehook/src/internal-types.ts'),
 			],
