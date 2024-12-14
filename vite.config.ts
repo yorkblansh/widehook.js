@@ -23,20 +23,28 @@ const setupLibConfig = (): UserConfig => ({
 		react(),
 		dts({
 			insertTypesEntry: false,
-			exclude: ['**/node_modules/**'],
+			exclude: [
+				resolve('packages/widehook/src/RxService.ts'),
+				resolve('packages/example'),
+				resolve('packages/example1'),
+				resolve('packages/widehook/src/passage'),
+				resolve('packages/widehook/src/internal-types.ts'),
+			],
 			beforeWriteFile: (filePath, content) => ({
-				filePath: filePath.replace('/packages/widehook/src', ''),
+				filePath: filePath.replace('/src', ''),
 				content,
 			}),
 		}),
 	],
 	build: {
 		outDir: 'packages/widehook/lib',
+		sourcemap: false,
+		minify: false,
 		lib: {
-			entry: resolve(__dirname, 'packages/widehook/src/widehook.ts'),
-			name: 'widehook',
-			fileName: 'widehook',
-			formats: ['es'],
+			formats: ['es'] as ['es'],
+			entry: [resolve('packages/widehook/src', 'widehook.ts')],
+			name: 'ReactFeatureFlag',
+			fileName: () => 'widehook.js',
 		},
 		rollupOptions: {
 			external: ['react'],
