@@ -1,7 +1,7 @@
 <h1>widehook.js</h1>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/new_logo.png" alt="widehook logo"/>
+  <img src="https://raw.githubusercontent.com/yorkblansh/widehook.js/master/imgs/new_logo.png" alt="widehook logo"/>
 </p>
 
 - [Create hook](#create-hook)
@@ -48,7 +48,7 @@ const setSpecialMessage = (text: string) => {
 }
 ```
 
-<!-- ![demo](https://raw.githubusercontent.com/yorkblansh/widehook.js/master/demo/11.gif) -->
+<!-- ![imgs](https://raw.githubusercontent.com/yorkblansh/widehook.js/master/imgs/11.gif) -->
 
 ## Hook options
 
