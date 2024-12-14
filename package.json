@@ -8,9 +8,16 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite --port 5174 --host",
+		"dev:example": "vite --mode example --port 5174 --host",
+		"dev:example1": "vite --mode example1 --port 5175 --host",
 		"release": "yarn run build && npm publish",
 		"build": "vite build && prettier lib -w --end-of-line crlf",
+		"build:example": "vite build --mode example",
+		"build:example1": "vite build --mode example1",
+		"build:lib": "vite build && prettier lib -w --end-of-line crlf",
 		"preview": "vite preview",
+		"preview:example": "vite preview --mode example",
+		"preview:example1": "vite preview --mode example1",
 		"lint": "prettier src -w --end-of-line crlf",
 		"incorrect__lint:fix": "yarn lint --fix",
 		"type-check": "tsc --project tsconfig.json --pretty --noEmit",
@@ -72,3 +79,4 @@
 		"rxjs": "^7.8.1"
 	}
 }
+

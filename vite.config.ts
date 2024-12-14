@@ -1,11 +1,29 @@
 import { resolve } from 'node:path'
-import { defineConfig } from 'vite'
+import { defineConfig, UserConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tsConfigPaths from 'vite-tsconfig-paths'
 import dts from 'vite-plugin-dts'
 
-// https://vitejs.dev/config/
-export default defineConfig({
+// Функция для создания конфигурации для примера
+const setupExampleConfig = (examplePath: string): UserConfig => ({
+	define: {
+		'process.env': { ...process.env },
+	},
+	plugins: [react(), tsConfigPaths()],
+	base: `/${examplePath}`,
+	build: {
+		outDir: `dist/${examplePath}`,
+		sourcemap: true,
+	},
+	resolve: {
+		alias: {
+			'@widehook': resolve(__dirname, 'src/widehook.ts'),
+		},
+	},
+})
+
+// Конфигурация для библиотеки
+const setupLibConfig = (): UserConfig => ({
 	define: {
 		'process.env': { ...process.env },
 	},
@@ -17,6 +35,7 @@ export default defineConfig({
 			exclude: [
 				resolve('src', 'RxService.ts'),
 				resolve('example'),
+				resolve('example1'),
 				resolve('src', 'passage'),
 				resolve('src', 'internal-types.ts'),
 			],
@@ -26,7 +45,6 @@ export default defineConfig({
 			}),
 		}),
 	],
-	base: '/example',
 	build: {
 		outDir: 'lib',
 		sourcemap: false,
@@ -41,4 +59,16 @@ export default defineConfig({
 			external: ['react'],
 		},
 	},
+})
+
+// Экспортируем конфигурацию в зависимости от переменной окружения EXAMPLE
+export default defineConfig(({ mode }) => {
+	switch (mode) {
+		case 'example':
+			return setupExampleConfig('example')
+		case 'example1':
+			return setupExampleConfig('example1')
+		default:
+			return setupLibConfig()
+	}
 })

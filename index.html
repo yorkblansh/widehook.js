@@ -1,13 +1,20 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<link rel="icon" type="image/svg+xml" href="/src/favicon.svg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Vite App</title>
+		<title>Widehook Examples</title>
 	</head>
 	<body>
 		<div id="root"></div>
-		<script type="module" src="/example/main.tsx"></script>
+		<script type="module">
+			// Динамически импортируем нужный пример в зависимости от mode
+			const mode = import.meta.env.MODE
+			if (mode === 'example') {
+				import('./example/main.tsx')
+			} else if (mode === 'example1') {
+				import('./example1/index.tsx')
+			}
+		</script>
 	</body>
 </html>
