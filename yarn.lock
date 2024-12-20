@@ -1248,6 +1248,36 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@widehook/demo1@workspace:packages/demo1":
+  version: 0.0.0-use.local
+  resolution: "@widehook/demo1@workspace:packages/demo1"
+  dependencies:
+    "@types/react": "npm:18.3.12"
+    "@types/react-dom": "npm:18.3.1"
+    "@vitejs/plugin-react": "npm:4.3.3"
+    react: "npm:18.3.1"
+    react-dom: "npm:18.3.1"
+    typescript: "npm:5.6.3"
+    vite: "npm:5.4.10"
+    widehook: "npm:*"
+  languageName: unknown
+  linkType: soft
+
+"@widehook/demo@workspace:packages/demo":
+  version: 0.0.0-use.local
+  resolution: "@widehook/demo@workspace:packages/demo"
+  dependencies:
+    "@types/react": "npm:18.3.12"
+    "@types/react-dom": "npm:18.3.1"
+    "@vitejs/plugin-react": "npm:4.3.3"
+    react: "npm:18.3.1"
+    react-dom: "npm:18.3.1"
+    typescript: "npm:5.6.3"
+    vite: "npm:5.4.10"
+    widehook: "npm:*"
+  languageName: unknown
+  linkType: soft
+
 "abbrev@npm:^2.0.0":
   version: 2.0.0
   resolution: "abbrev@npm:2.0.0"
@@ -1767,36 +1797,6 @@ __metadata:
   checksum: 10/b02109c5d46bc2ed47de4990eef770f7457b1159a229f0999a09224d2b85ffeed2d7679cffcff90aeb4448e94b0168feb5265b209cdec29aad50a3d6e93d21e2
   languageName: node
   linkType: hard
-
-"example1@workspace:packages/example1":
-  version: 0.0.0-use.local
-  resolution: "example1@workspace:packages/example1"
-  dependencies:
-    "@types/react": "npm:18.3.12"
-    "@types/react-dom": "npm:18.3.1"
-    "@vitejs/plugin-react": "npm:4.3.3"
-    react: "npm:18.3.1"
-    react-dom: "npm:18.3.1"
-    typescript: "npm:5.6.3"
-    vite: "npm:5.4.10"
-    widehook: "npm:*"
-  languageName: unknown
-  linkType: soft
-
-"example@workspace:packages/example":
-  version: 0.0.0-use.local
-  resolution: "example@workspace:packages/example"
-  dependencies:
-    "@types/react": "npm:18.3.12"
-    "@types/react-dom": "npm:18.3.1"
-    "@vitejs/plugin-react": "npm:4.3.3"
-    react: "npm:18.3.1"
-    react-dom: "npm:18.3.1"
-    typescript: "npm:5.6.3"
-    vite: "npm:5.4.10"
-    widehook: "npm:*"
-  languageName: unknown
-  linkType: soft
 
 "execa@npm:^5.1.1":
   version: 5.1.1
@@ -3676,9 +3676,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"widehook-monorepo@workspace:.":
+"widehook-packages@workspace:.":
   version: 0.0.0-use.local
-  resolution: "widehook-monorepo@workspace:."
+  resolution: "widehook-packages@workspace:."
   dependencies:
     "@changesets/cli": "npm:^2.27.9"
     "@types/react": "npm:18.3.12"

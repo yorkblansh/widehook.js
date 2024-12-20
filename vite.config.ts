@@ -3,8 +3,8 @@ import { defineConfig, UserConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import dts from 'vite-plugin-dts'
 
-// Функция для создания конфигурации для примера
-const setupExampleConfig = (examplePath: string): UserConfig => ({
+// Функция для создания конфигурации для демо
+const setupDemoConfig = (demoPath: string): UserConfig => ({
 	plugins: [react()],
 	resolve: {
 		alias: {
@@ -12,7 +12,7 @@ const setupExampleConfig = (examplePath: string): UserConfig => ({
 		},
 	},
 	build: {
-		outDir: `dist/${examplePath}`,
+		outDir: `dist/${demoPath}`,
 		sourcemap: true,
 	},
 })
@@ -25,13 +25,15 @@ const setupLibConfig = (): UserConfig => ({
 			insertTypesEntry: false,
 			include: [resolve('packages/widehook')],
 			exclude: [
-				resolve('packages/widehook/src/RxService.ts'),
-				resolve('packages/widehook/src/utils'),
-				resolve('packages/widehook/src/passage'),
-				resolve('packages/widehook/src/internal-types.ts'),
+				...[
+					'RxService.ts', //
+					'utils',
+					'passage',
+					'internal-types.ts',
+				].map((path) => resolve('packages/widehook/src', path)),
 			],
 			beforeWriteFile: (filePath, content) => ({
-				filePath: filePath.replace('/src', ''),
+				filePath: filePath.replace('/packages/widehook/src', ''),
 				content,
 			}),
 		}),
@@ -39,10 +41,10 @@ const setupLibConfig = (): UserConfig => ({
 	build: {
 		outDir: 'packages/widehook/lib',
 		sourcemap: false,
-		minify: false,
+		minify: true,
 		lib: {
-			formats: ['es'] as ['es'],
-			entry: [resolve('packages/widehook/src', 'widehook.ts')],
+			formats: ['es'],
+			entry: [resolve('packages/widehook/src/widehook.ts')],
 			name: 'ReactFeatureFlag',
 			fileName: () => 'widehook.js',
 		},
@@ -55,10 +57,10 @@ const setupLibConfig = (): UserConfig => ({
 // Экспортируем конфигурацию в зависимости от переменной окружения MODE
 export default defineConfig(({ mode }) => {
 	switch (mode) {
-		case 'example':
-			return setupExampleConfig('example')
-		case 'example1':
-			return setupExampleConfig('example1')
+		case 'demo':
+			return setupDemoConfig('demo')
+		case 'demo1':
+			return setupDemoConfig('demo1')
 		default:
 			return setupLibConfig()
 	}

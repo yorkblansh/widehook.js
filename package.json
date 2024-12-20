@@ -1,15 +1,15 @@
 {
-	"name": "widehook-monorepo",
+	"name": "widehook-packages",
 	"private": true,
 	"workspaces": [
 		"packages/*"
 	],
 	"scripts": {
-		"dev:example": "vite --mode example --port 5174 --host",
-		"dev:example1": "vite --mode example1 --port 5175 --host",
-		"build": "vite build",
-		"build:example": "vite build --mode example",
-		"build:example1": "vite build --mode example1",
+		"start:demo": "vite --mode demo --port 5174 --host",
+		"start:demo1": "vite --mode demo1 --port 5175 --host",
+		"build:lib": "vite build",
+		"build:demo": "vite build --mode demo",
+		"build:demo1": "vite build --mode demo1",
 		"lint": "yarn workspaces foreach run lint",
 		"type-check": "yarn workspaces foreach run type-check"
 	},

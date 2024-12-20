@@ -1,10 +1,10 @@
 {
-	"name": "example",
+	"name": "@widehook/demo1",
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
-		"dev": "vite --port 5174 --host",
+		"dev": "vite --port 5175 --host",
 		"build": "vite build",
 		"preview": "vite preview",
 		"lint": "prettier src -w --end-of-line crlf",
