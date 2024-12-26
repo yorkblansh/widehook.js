@@ -5,11 +5,13 @@
 	"license": "MIT",
 	"main": "./lib/widehook.js",
 	"module": "./lib/widehook.js",
+	"types": "./lib/widehook.d.ts",
 	"type": "module",
 	"scripts": {
 		"build": "vite build && prettier lib -w --end-of-line crlf",
 		"lint": "prettier src -w --end-of-line crlf",
-		"type-check": "tsc --project tsconfig.json --pretty --noEmit"
+		"type-check": "tsc --project tsconfig.json --pretty --noEmit",
+		"prepublishOnly": "yarn build"
 	},
 	"files": [
 		"lib"

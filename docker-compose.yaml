@@ -10,10 +10,10 @@ services:
       context: ./
       dockerfile: ./Dockerfile
     ports:
-      - 90:5055
+      # - 90:5055
       - 5174:5174
     volumes:
-      - ../:/widehook
+      - ./:/widehook
     tty: true
     stdin_open: true
     restart: on-failure

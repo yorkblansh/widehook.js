@@ -41,7 +41,7 @@ const setupLibConfig = (): UserConfig => ({
 	build: {
 		outDir: 'packages/widehook/lib',
 		sourcemap: false,
-		minify: true,
+		minify: false,
 		lib: {
 			formats: ['es'],
 			entry: [resolve('packages/widehook/src/widehook.ts')],
@@ -59,8 +59,8 @@ export default defineConfig(({ mode }) => {
 	switch (mode) {
 		case 'demo':
 			return setupDemoConfig('demo')
-		case 'demo1':
-			return setupDemoConfig('demo1')
+		case 'todo':
+			return setupDemoConfig('todo')
 		default:
 			return setupLibConfig()
 	}

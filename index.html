@@ -10,11 +10,7 @@
 		<script type="module">
 			// Динамически импортируем нужный пример в зависимости от mode
 			const mode = import.meta.env.MODE
-			if (mode === 'example') {
-				import('./example/main.tsx')
-			} else if (mode === 'example1') {
-				import('./example1/index.tsx')
-			}
+			import(`./packages/${mode}/src/main.tsx`)
 		</script>
 	</body>
 </html>
