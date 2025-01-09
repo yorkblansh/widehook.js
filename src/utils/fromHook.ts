@@ -23,7 +23,7 @@ export const fromHook = <State, StateName extends string>(
 
 	if (objectStateName) {
 		return toWideObject<State, StateName>(
-			[objectStateName, state as State],
+			[objectStateName, state() as State],
 			[`set${capitalize(objectStateName)}`, setNextState],
 			[`on${capitalize(objectStateName)}`, onNextState],
 		)
