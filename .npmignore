@@ -5,3 +5,6 @@ example
 src
 tsconfig.json
 vite.config.ts
+ROADMAP.md
+CHANGELOG.md
+
