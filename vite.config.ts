@@ -19,6 +19,7 @@ const setupDemoConfig = (demoPath: string): UserConfig => ({
 
 // Конфигурация для библиотеки
 const setupLibConfig = (): UserConfig => ({
+	root: __dirname,
 	plugins: [
 		react(),
 		dts({
@@ -50,7 +51,6 @@ const setupLibConfig = (): UserConfig => ({
 		},
 		rollupOptions: {
 			external: ['react'],
-			input: resolve(__dirname, 'packages/widehook/src/widehook.ts'),
 		},
 	},
 })
