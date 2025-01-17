@@ -5,7 +5,6 @@ import dts from 'vite-plugin-dts'
 
 // Функция для создания конфигурации для демо
 const setupDemoConfig = (demoPath: string): UserConfig => ({
-	root: __dirname,
 	plugins: [react()],
 	resolve: {
 		alias: {
@@ -20,7 +19,6 @@ const setupDemoConfig = (demoPath: string): UserConfig => ({
 
 // Конфигурация для библиотеки
 const setupLibConfig = (): UserConfig => ({
-	root: __dirname,
 	plugins: [
 		react(),
 		dts({
@@ -52,7 +50,6 @@ const setupLibConfig = (): UserConfig => ({
 		},
 		rollupOptions: {
 			external: ['react'],
-			input: '../../index.html',
 		},
 	},
 })
