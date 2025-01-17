@@ -18,13 +18,13 @@
 		"baseUrl": ".",
 		"outDir": "./lib",
 		"paths": {
-			"@widehook": ["src/widehook.ts"]
+			"@widehook": ["packages/widehook/src/widehook.ts"]
 		},
 		"declaration": true,
 		"pretty": true,
-		"types": ["bun-types"]
+		"types": []
 	},
-	"include": ["./example", "./src"],
+	"include": ["./examples", "./packages"],
 	"exclude": ["node_modules"],
 	"references": [{ "path": "./tsconfig.node.json" }]
 }

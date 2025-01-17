@@ -1,5 +1,5 @@
-import { useCounter, useText } from 'example/hooks/useText'
 import { useEffect } from 'react'
+import { useText, useCounter } from '../hooks/useText'
 
 export const MainComponent = () => {
 	const [text, setText, kkk] = useText()

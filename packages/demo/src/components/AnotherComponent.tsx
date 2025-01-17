@@ -1,5 +1,5 @@
-import { useText } from 'example/hooks/useText'
 import { useState } from 'react'
+import { useText } from '../hooks/useText'
 
 export const AnotherComponent = () => {
 	const [v, setV] = useState('')

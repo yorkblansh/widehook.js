@@ -1,0 +1,56 @@
+{
+	"name": "widehook",
+	"version": "3.0.1",
+	"description": "One state use wide",
+	"license": "MIT",
+	"main": "./lib/widehook.js",
+	"module": "./lib/widehook.js",
+	"types": "./lib/widehook.d.ts",
+	"type": "module",
+	"scripts": {
+		"build": "vite build && prettier lib -w --end-of-line crlf",
+		"lint": "prettier src -w --end-of-line crlf",
+		"type-check": "tsc --project tsconfig.json --pretty --noEmit",
+		"prepublishOnly": "yarn build"
+	},
+	"files": [
+		"lib"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/yorkblansh/widehook.js.git"
+	},
+	"keywords": [
+		"hook",
+		"state",
+		"global state",
+		"react",
+		"state manager",
+		"global hooks",
+		"react hooks",
+		"react global state"
+	],
+	"author": "Oleg Chepelev - yorkblansh@yandex.com",
+	"bugs": {
+		"url": "https://github.com/yorkblansh/widehook.js/issues"
+	},
+	"homepage": "https://github.com/yorkblansh/widehook.js#readme",
+	"peerDependencies": {
+		"react": ">=17.x"
+	},
+	"devDependencies": {
+		"@types/lodash": "^4.17.13",
+		"@types/lodash.frompairs": "^4",
+		"@types/node": "22.9.0",
+		"@types/react": "18.3.12",
+		"@vitejs/plugin-react": "4.3.3",
+		"typescript": "5.6.3",
+		"vite": "5.4.10",
+		"vite-plugin-dts": "4.3.0",
+		"vite-tsconfig-paths": "5.1.0"
+	},
+	"dependencies": {
+		"lodash.frompairs": "^4.0.1",
+		"rxjs": "^7.8.1"
+	}
+}

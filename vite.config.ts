@@ -1,39 +1,50 @@
-import { resolve } from 'node:path'
-import { defineConfig } from 'vite'
+import { resolve } from 'path'
+import { defineConfig, UserConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import tsConfigPaths from 'vite-tsconfig-paths'
 import dts from 'vite-plugin-dts'
 
-// https://vitejs.dev/config/
-export default defineConfig({
-	define: {
-		'process.env': { ...process.env },
+// Функция для создания конфигурации для демо
+const setupDemoConfig = (demoPath: string): UserConfig => ({
+	plugins: [react()],
+	resolve: {
+		alias: {
+			'@widehook': resolve(__dirname, 'packages/widehook/src/widehook.ts'),
+		},
 	},
+	build: {
+		outDir: `dist/${demoPath}`,
+		sourcemap: true,
+	},
+})
+
+// Конфигурация для библиотеки
+const setupLibConfig = (): UserConfig => ({
 	plugins: [
 		react(),
-		tsConfigPaths(),
 		dts({
 			insertTypesEntry: false,
+			include: [resolve('packages/widehook')],
 			exclude: [
-				resolve('src', 'RxService.ts'),
-				resolve('example'),
-				resolve('src', 'passage'),
-				resolve('src', 'internal-types.ts'),
+				...[
+					'RxService.ts', //
+					'utils',
+					'passage',
+					'internal-types.ts',
+				].map((path) => resolve('packages/widehook/src', path)),
 			],
 			beforeWriteFile: (filePath, content) => ({
-				filePath: filePath.replace('/src', ''),
+				filePath: filePath.replace('/packages/widehook/src', ''),
 				content,
 			}),
 		}),
 	],
-	base: '/example',
 	build: {
-		outDir: 'lib',
+		outDir: 'packages/widehook/lib',
 		sourcemap: false,
 		minify: false,
 		lib: {
 			formats: ['es'],
-			entry: [resolve('src', 'widehook.ts')],
+			entry: [resolve('packages/widehook/src/widehook.ts')],
 			name: 'ReactFeatureFlag',
 			fileName: () => 'widehook.js',
 		},
@@ -41,4 +52,16 @@ export default defineConfig({
 			external: ['react'],
 		},
 	},
+})
+
+// Экспортируем конфигурацию в зависимости от переменной окружения MODE
+export default defineConfig(({ mode }) => {
+	switch (mode) {
+		case 'demo':
+			return setupDemoConfig('demo')
+		case 'todo':
+			return setupDemoConfig('todo')
+		default:
+			return setupLibConfig()
+	}
 })

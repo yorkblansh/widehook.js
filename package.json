@@ -1,74 +1,32 @@
 {
-	"name": "widehook",
-	"version": "3.0.1",
-	"description": "One state use wide",
-	"license": "MIT",
-	"main": "./lib/widehook.js",
-	"module": "./lib/widehook.js",
-	"type": "module",
+	"name": "widehook-monorepo",
+	"private": true,
+	"workspaces": [
+		"packages/*"
+	],
 	"scripts": {
-		"dev": "vite --port 5174 --host",
-		"release": "yarn run build && npm publish",
-		"build": "vite build && prettier lib -w --end-of-line crlf",
-		"preview": "vite preview",
-		"lint": "prettier src -w --end-of-line crlf",
-		"incorrect__lint:fix": "yarn lint --fix",
-		"type-check": "tsc --project tsconfig.json --pretty --noEmit",
-		"ci": "yarn lint && yarn type-check",
-		"prepare": "husky",
-		"pretty-quick": "pretty-quick"
-	},
-	"files": [
-		"lib"
-	],
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/yorkblansh/widehook.js.git"
-	},
-	"keywords": [
-		"hook",
-		"state",
-		"global state",
-		"react",
-		"state manager",
-		"global hooks",
-		"react hooks",
-		"react global state"
-	],
-	"author": "Oleg Chepelev - yorkblansh@yandex.com",
-	"bugs": {
-		"url": "https://github.com/yorkblansh/widehook.js/issues"
-	},
-	"homepage": "https://github.com/yorkblansh/widehook.js#readme",
-	"peerDependencies": {
-		"react": ">=17.x"
+		"demo:start": "vite --mode demo --port 5174 --host",
+		"todo:start": "vite --mode todo --port 5174 --host",
+		"lib:build": "vite build",
+		"demo:build": "vite build --mode demo",
+		"todo:build": "vite build --mode todo",
+		"lint": "yarn workspace widehook run lint",
+		"type-check": "yarn workspace widehook run type-check",
+		"changeset": "changeset",
+		"version": "changeset version",
+		"release": "yarn workspace widehook publish"
 	},
 	"devDependencies": {
 		"@changesets/cli": "^2.27.9",
-		"@types/lodash": "^4.17.13",
-		"@types/lodash.frompairs": "^4",
-		"@types/node": "22.9.0",
 		"@types/react": "18.3.12",
 		"@types/react-dom": "18.3.1",
 		"@vitejs/plugin-react": "4.3.3",
-		"bun-types": "^1.1.34",
 		"husky": "^9.1.6",
-		"lodash": "^4.17.21",
-		"pinst": "^3.0.0",
 		"prettier": "^3.3.3",
 		"pretty-quick": "^4.0.0",
-		"react": "18.3.1",
-		"react-dom": "18.3.1",
-		"sass": "^1.80.6",
 		"typescript": "5.6.3",
 		"vite": "5.4.10",
-		"vite-plugin-dts": "4.3.0",
-		"vite-plugin-linter": "3.0.0",
-		"vite-tsconfig-paths": "5.1.0"
+		"vite-plugin-dts": "4.3.0"
 	},
-	"packageManager": "yarn@4.5.1",
-	"dependencies": {
-		"lodash.frompairs": "^4.0.1",
-		"rxjs": "^7.8.1"
-	}
+	"packageManager": "yarn@4.5.1"
 }

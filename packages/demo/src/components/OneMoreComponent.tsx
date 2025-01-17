@@ -1,5 +1,4 @@
-import { useText } from 'example/hooks/useText'
-
+import { useText } from '../hooks/useText'
 export const OneMoreComponent = () => {
 	const [text, setText] = useText()
 
