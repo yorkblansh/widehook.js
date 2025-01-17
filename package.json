@@ -10,8 +10,8 @@
 		"lib:build": "vite build",
 		"demo:build": "vite build --mode demo",
 		"todo:build": "vite build --mode todo",
-		"lint": "yarn workspaces foreach --all run lint",
-		"type-check": "yarn workspaces foreach --all run type-check",
+		"lint": "yarn workspace widehook run lint",
+		"type-check": "yarn workspace widehook run type-check",
 		"changeset": "changeset",
 		"version": "changeset version",
 		"release": "yarn workspace widehook publish"
