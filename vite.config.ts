@@ -50,9 +50,7 @@ const setupLibConfig = (): UserConfig => ({
 		},
 		rollupOptions: {
 			external: ['react'],
-			input: {
-				app: './index.html',
-			},
+			input: resolve(__dirname, 'packages/widehook/src/widehook.ts'),
 		},
 	},
 })
