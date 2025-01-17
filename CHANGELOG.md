@@ -1,5 +1,11 @@
 # widehook
 
+## 3.0.1
+
+### Patch Changes
+
+- 2367ff8: fix usage outside of component
+
 ## 3.0.0
 
 ### Major Changes
