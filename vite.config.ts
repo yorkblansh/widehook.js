@@ -52,6 +52,7 @@ const setupLibConfig = (): UserConfig => ({
 		},
 		rollupOptions: {
 			external: ['react'],
+			input: '../../index.html',
 		},
 	},
 })
