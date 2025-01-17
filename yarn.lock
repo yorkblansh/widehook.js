@@ -4414,9 +4414,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"widehook-packages@workspace:.":
+"widehook-monorepo@workspace:.":
   version: 0.0.0-use.local
-  resolution: "widehook-packages@workspace:."
+  resolution: "widehook-monorepo@workspace:."
   dependencies:
     "@changesets/cli": "npm:^2.27.9"
     "@types/react": "npm:18.3.12"
