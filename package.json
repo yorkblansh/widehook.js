@@ -7,7 +7,7 @@
 	"scripts": {
 		"demo:start": "vite --mode demo --port 5174 --host",
 		"todo:start": "vite --mode todo --port 5174 --host",
-		"lib:build": "vite build",
+		"lib:build": "yarn workspace widehook run build",
 		"demo:build": "vite build --mode demo",
 		"todo:build": "vite build --mode todo",
 		"lint": "yarn workspace widehook run lint",
