@@ -5,6 +5,7 @@ import dts from 'vite-plugin-dts'
 
 // Функция для создания конфигурации для демо
 const setupDemoConfig = (demoPath: string): UserConfig => ({
+	root: __dirname,
 	plugins: [react()],
 	resolve: {
 		alias: {
